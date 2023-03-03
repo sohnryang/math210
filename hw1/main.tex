@@ -1,0 +1,162 @@
+\documentclass{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{kotex}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\usepackage[headsepline]{scrlayer-scrpage}
+
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+\newtheorem{theorem}{Theorem}
+
+\setmainhangulfont{Noto Serif CJK KR}[
+  UprightFont=* Light, BoldFont=* Bold,
+  Script=Hangul, Language=Korean, AutoFakeSlant,
+]
+\setsanshangulfont{Noto Sans CJK KR}[
+  UprightFont=* DemiLight, BoldFont=* Medium,
+  Script=Hangul, Language=Korean
+]
+\setmathhangulfont{Noto Sans CJK KR}[
+  SizeFeatures={
+    {Size=-6,  Font=* Medium},
+    {Size=6-9, Font=*},
+    {Size=9-,  Font=* DemiLight},
+  },
+  Script=Hangul, Language=Korean
+]
+\title{Homework 1 (due Mar. 7)}
+\author{손량(20220323)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+\section{Section 20 \#4}
+By definition, \(f'(z_0), g'(z_0)\) can be written as follows:
+
+\[
+  f'(z_0) = \lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0},\, g'(z_0) = \lim_{z \to z_0} \frac{g(z) - g(z_0)}{z - z_0}
+\]
+
+By properties of limits,
+
+\[
+  \frac{f'(z_0)}{g'(z_0)} = \frac{\lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0}}{\lim_{z \to z_0} \frac{g(z) - g(z_0)}{z - z_0}} = \lim_{z \to z_0} \frac{\frac{f(z) - f(z_0)}{z - z_0}}{\frac{g(z) - g(z_0)}{z - z_0}} = \lim_{z \to z_0} \frac{f(z)}{g(z)}
+\]
+
+\section{Section 20 \#9}
+\(\Delta w\) can be written as follows, if \(z = 0\).
+
+\[
+  \Delta w = f(z + \Delta z) - f(z) = f(\Delta z) - f(0) = f(\Delta z) = \frac{\overline{\Delta z}^2}{\Delta z}
+\]
+
+Then \(\Delta w/\Delta z = \left(\overline{\Delta z} / \Delta z\right)^2\). If \(\Delta z\) is on the real axis, \(\overline{\Delta z} = \Delta z\) and \(\left(\overline{\Delta z} / \Delta z\right)^2 = \left( \Delta z / \Delta z \right)^2 = 1\). If \(\Delta z\) is on the imaginary axis, \(\overline{\Delta z} = -\Delta z\) and \(\Delta w / \Delta z = \left( \overline{\Delta z} / \Delta z \right) = \left( -\Delta z / \Delta z \right)^2 = 1\). However, on each nonzero point on line \(\Delta y = \Delta x\),
+
+\[
+  \frac{\Delta w}{\Delta z} = \left( \frac{\overline{\Delta z}}{\Delta z} \right)^2 = \left( \frac{\Delta x - i\Delta x}{\Delta x + i\Delta x} \right)^2 = \left( \frac{1 - i}{1 + i} \right)^2 = (-i)^2 = -1
+\]
+
+If the limit of \(\Delta w / \Delta z\) exists, it can be found by letting \(\Delta z\) approach the origin in any manner. However, the limit is 1 if \(\Delta z\) approached the origin along the real or imaginary axis, or \(-1\) if \(\Delta z\) approached the origin along the line \(\Delta y = \Delta x\). Hence, the limit does not exist and \(f'(0)\) also does not exist.
+
+\section{Section 24 \#3 (c)}
+\(f(z)\) can be written as follows:
+
+\[
+  f(z) = f(x + iy) = (x + iy)y = xy + iy^2
+\]
+
+Let \(u(x, y) := xy\) and \(v(x, y) = y^2\). If \(f\) is differentible at \(z_0 = x_0 + iy_0\), the first-order partial derivatives of \(u\) and \(v\) must exist at \((x_0, y_0)\), and Cauchy-Riemann equation must be satisfied. Since the partial derivatives exist at every \((x_0, y_0)\), let's check the Cauchy-Riemann equation.
+
+\begin{align*}
+  u_x(x_0, y_0) = v_y(x_0, y_0) &\Longleftrightarrow y_0 = 2y_0 \\
+  u_y(x_0, y_0) = -v_x(x_0, y_0) &\Longleftrightarrow x_0 = 0
+\end{align*}
+
+Only \((0, 0)\) satistifes the equation. \(f\) cannot be differentible at points other than \((0, 0)\). Let's check if it is differentible at \((0, 0)\):
+
+\begin{align*}
+  \lim_{\Delta z \to 0} \frac{f(\Delta z) - f(0)}{\Delta z - 0} =& \lim_{\Delta z \to 0} \frac{f(\Delta z)}{\Delta z} = \lim_{\Delta z \to 0} \frac{\Delta z \operatorname{Im} \Delta z}{\Delta z} \\
+  =& \lim_{\Delta z \to 0} \operatorname{Im} \Delta z = 0
+\end{align*}
+
+\(f\) is only differentible at \((0, 0)\), and \(f'(0) = 0\).
+
+\section{Section 24 \#7}
+\subsection{Solution for (a)}
+According to problem \#6, the following holds for \(f'(z)\):
+
+\[
+  f'(z) = u_x + iv_x = e^{-i\theta} (u_r + iv_r)
+\]
+
+By the polar form (6) in section 24, \(u_r\) and \(v_r\) can be written as follows:
+
+\[
+  u_r = v_\theta / r, \quad v_r = -u_\theta / r
+\]
+
+Substitution gives us the result:
+
+\[
+  f'(z) = \frac{1}{re^{i\theta}} (v_\theta - iu_\theta) = \frac{-i}{z_0} (u_\theta + iv_\theta)
+\]
+
+\subsection{Solution for (b)}
+\(f(z)\) can be written as follows, where \(z \not = 0\):
+
+\[
+  f(z) = \frac{1}{z} = \frac{1}{r e^{i\theta}} = \frac{1}{r} (\cos (-\theta) + i\sin (-\theta)) = \frac{1}{r} (\cos \theta - i\sin \theta)
+\]
+
+The component functions are
+
+\[
+  u(r, \theta) = \frac{\cos \theta}{r}, \quad v(r, \theta) = \frac{-\sin \theta}{r}
+\]
+
+Plugging those to the expression derived in (a), we get the desired result.
+
+\begin{align*}
+  f'(z) &= \frac{-i}{z} (u_\theta + iv_\theta) = \frac{-i}{z} \left(\frac{-\sin \theta}{r} + i \frac{-\cos \theta}{r}\right) \\
+  &= -\frac{i}{zr} \left( \sin(-\theta) - i\cos(-\theta) \right) = -\frac{1}{zr} (\cos(-\theta) + i\sin(-\theta)) \\
+  &= -\frac{1}{zre^{i\theta}} = -\frac{1}{z^2}
+\end{align*}
+
+\section{Section 24 \#8}
+\subsection{Solution for (a)}
+Using the chain rule,
+
+\begin{align*}
+  \frac{\partial F}{\partial \overline{z}} &= \frac{\partial F}{\partial x} \frac{\partial x}{\partial \overline{z}} + \frac{\partial F}{\partial y} \frac{\partial y}{\partial \overline{z}} = \frac{\partial F}{\partial x} \left( \frac{\partial}{\partial \overline{z}} \frac{z + \overline{z}}{2} \right) + \frac{\partial F}{\partial y} \left( \frac{\partial}{\partial \overline{z}} \frac{z - \overline{z}}{2i} \right) \\
+ &= \frac{1}{2} \frac{\partial F}{\partial x} - \frac{1}{2i} \frac{\partial F}{\partial y} = \frac{1}{2} \left( \frac{\partial F}{\partial x} + i \frac{\partial F}{\partial y} \right)
+\end{align*}
+
+\subsection{Solution for (b)}
+Using the defined operator,
+
+\begin{align*}
+  \frac{\partial f}{\partial \overline{z}} = \frac{1}{2}\left( \frac{\partial f}{\partial x} + i \frac{\partial f}{\partial y} \right) = \frac{1}{2}\left[ (u_x + iv_x) + i(u_y + iv_y) \right] = \frac{1}{2}\left[ (u_x - v_y) + i(v_x + u_y) \right]
+\end{align*}
+
+Since the first order derivatives of \(f\) satisfy the Cauchy-Riemann equations,
+
+\[
+  u_x = v_y, \quad u_y = -v_x
+\]
+
+Both \(u_x - v_y\) and \(v_x + u_y\) are zero, giving us the desired result, \(\partial f / \partial \overline{z} = 0\).
+
+\end{document}
