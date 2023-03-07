@@ -65,8 +65,8 @@ By properties of limits,
 
 Then \(\Delta w/\Delta z = \left(\overline{\Delta z} / \Delta z\right)^2\).
 If \(\Delta z\) is on the real axis, \(\overline{\Delta z} = \Delta z\) and \(\left(\overline{\Delta z} / \Delta z\right)^2 = \left( \Delta z / \Delta z \right)^2 = 1\).
-If \(\Delta z\) is on the imaginary axis, \(\overline{\Delta z} = -\Delta z\) and \(\Delta w / \Delta z = \left( \overline{\Delta z} / \Delta z \right) = \left( -\Delta z / \Delta z \right)^2 = 1\).
-However, on each nonzero point on line \(\Delta y = \Delta x\),
+If \(\Delta z\) is on the imaginary axis, \(\overline{\Delta z} = -\Delta z\) and \(\Delta w / \Delta z = \left( \overline{\Delta z} / \Delta z \right)^2 = \left( -\Delta z / \Delta z \right)^2 = 1\).
+However, on each nonzero point on line \(\Delta y = \Delta x\) where \(\Delta z\) is written as \(\Delta x + i\Delta y\),
 
 \[
   \frac{\Delta w}{\Delta z} = \left( \frac{\overline{\Delta z}}{\Delta z} \right)^2 = \left( \frac{\Delta x - i\Delta x}{\Delta x + i\Delta x} \right)^2 = \left( \frac{1 - i}{1 + i} \right)^2 = (-i)^2 = -1
@@ -74,7 +74,7 @@ However, on each nonzero point on line \(\Delta y = \Delta x\),
 
 If the limit of \(\Delta w / \Delta z\) exists, it can be found by letting \(\Delta z\) approach the origin in any manner.
 However, the limit is 1 if \(\Delta z\) approached the origin along the real or imaginary axis, or \(-1\) if \(\Delta z\) approached the origin along the line \(\Delta y = \Delta x\).
-Hence, the limit does not exist and \(f'(0)\) also does not exist.
+Since limits are unique, it is a contradiction and \(f'(0)\) does not exist.
 
 \section{Section 24 \#3 (c)}
 \(f(z)\) can be written as follows:
@@ -83,35 +83,35 @@ Hence, the limit does not exist and \(f'(0)\) also does not exist.
   f(z) = f(x + iy) = (x + iy)y = xy + iy^2
 \]
 
-Let \(u(x, y) := xy\) and \(v(x, y) = y^2\).
+Let \(u(x, y) := xy\) and \(v(x, y) = y^2\), then \(f(z) = u(x, y) + iv(x, y)\).
 If \(f\) is differentible at \(z_0 = x_0 + iy_0\), the first-order partial derivatives of \(u\) and \(v\) must exist at \((x_0, y_0)\), and Cauchy-Riemann equation must be satisfied.
-Since the partial derivatives exist at every \((x_0, y_0)\), let's check the Cauchy-Riemann equation.
+Since the partial derivatives exist at every \((x_0, y_0)\) since \(u\) and \(v\) are polynomial functions, let's check the Cauchy-Riemann equation.
 
 \begin{align*}
   u_x(x_0, y_0) = v_y(x_0, y_0) &\Longleftrightarrow y_0 = 2y_0 \\
   u_y(x_0, y_0) = -v_x(x_0, y_0) &\Longleftrightarrow x_0 = 0
 \end{align*}
 
-Only \((0, 0)\) satistifes the equation.
-\(f\) cannot be differentible at points other than \((0, 0)\).
-Let's check if it is differentible at \((0, 0)\):
+Only \(x_0 = 0, y_0 = 0\) satistifes the equation.
+\(f\) cannot be differentible at points other than \(0\).
+Let's check if it is differentible at \(0\):
 
 \begin{align*}
   \lim_{\Delta z \to 0} \frac{f(\Delta z) - f(0)}{\Delta z - 0} =& \lim_{\Delta z \to 0} \frac{f(\Delta z)}{\Delta z} = \lim_{\Delta z \to 0} \frac{\Delta z \operatorname{Im} \Delta z}{\Delta z} \\
   =& \lim_{\Delta z \to 0} \operatorname{Im} \Delta z = 0
 \end{align*}
 
-\(f\) is only differentible at \((0, 0)\), and \(f'(0) = 0\).
+\(f\) is only differentible at \(0\), and \(f'(0) = 0\).
 
 \section{Section 24 \#7}
 \subsection{Solution for (a)}
-According to problem \#6, the following holds for \(f'(z)\):
+According to problem \#6, the following holds for \(f'(z_0)\) where \(z_0 = r_0\exp(i\theta_0)\) and \(f\) is differentible at \(z_0\): (\(u_r\) and \(v_r\) are evaluated at \((r_0, \theta_0)\))
 
 \[
-  f'(z) = u_x + iv_x = e^{-i\theta} (u_r + iv_r)
+  f'(z_0) = u_x + iv_x = e^{-i\theta_0} (u_r + iv_r)
 \]
 
-By the polar form (6) in section 24, \(u_r\) and \(v_r\) can be written as follows:
+By the polar form of Cauchy-Riemann equation, \(u_r\) and \(v_r\) can be written as follows (\(u_\theta\) and \(v_\theta\) are evaluated at \((r_0, \theta_0)\))
 
 \[
   u_r = v_\theta / r, \quad v_r = -u_\theta / r
@@ -120,11 +120,11 @@ By the polar form (6) in section 24, \(u_r\) and \(v_r\) can be written as follo
 Substitution gives us the result:
 
 \[
-  f'(z) = \frac{1}{re^{i\theta}} (v_\theta - iu_\theta) = \frac{-i}{z_0} (u_\theta + iv_\theta)
+  f'(z_0) = \frac{1}{r_0 e^{i\theta_0}} (v_\theta - iu_\theta) = \frac{-i}{z_0} (u_\theta + iv_\theta)
 \]
 
 \subsection{Solution for (b)}
-\(f(z)\) can be written as follows, where \(z \not = 0\):
+\(f(z)\) can be written as follows, where \(z = r\exp(i\theta) \not = 0\):
 
 \[
   f(z) = \frac{1}{z} = \frac{1}{r e^{i\theta}} = \frac{1}{r} (\cos (-\theta) + i\sin (-\theta)) = \frac{1}{r} (\cos \theta - i\sin \theta)
@@ -136,6 +136,7 @@ The component functions are
   u(r, \theta) = \frac{\cos \theta}{r}, \quad v(r, \theta) = \frac{-\sin \theta}{r}
 \]
 
+Since \(f(z)\) is differentible in \(\mathbb{C} \setminus \{0\}\), we can use the relation in (a).
 Plugging those to the expression derived in (a), we get the desired result.
 
 \begin{align*}
@@ -160,7 +161,7 @@ Using the defined operator,
   \frac{\partial f}{\partial \overline{z}} = \frac{1}{2}\left( \frac{\partial f}{\partial x} + i \frac{\partial f}{\partial y} \right) = \frac{1}{2}\left[ (u_x + iv_x) + i(u_y + iv_y) \right] = \frac{1}{2}\left[ (u_x - v_y) + i(v_x + u_y) \right]
 \end{align*}
 
-Since the first order derivatives of \(f\) satisfy the Cauchy-Riemann equations,
+Since the first order derivatives of the real and imaginary components of \(f\) satisfy the Cauchy-Riemann equations,
 
 \[
   u_x = v_y, \quad u_y = -v_x
