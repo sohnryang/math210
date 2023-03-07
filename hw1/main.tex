@@ -63,13 +63,18 @@ By properties of limits,
   \Delta w = f(z + \Delta z) - f(z) = f(\Delta z) - f(0) = f(\Delta z) = \frac{\overline{\Delta z}^2}{\Delta z}
 \]
 
-Then \(\Delta w/\Delta z = \left(\overline{\Delta z} / \Delta z\right)^2\). If \(\Delta z\) is on the real axis, \(\overline{\Delta z} = \Delta z\) and \(\left(\overline{\Delta z} / \Delta z\right)^2 = \left( \Delta z / \Delta z \right)^2 = 1\). If \(\Delta z\) is on the imaginary axis, \(\overline{\Delta z} = -\Delta z\) and \(\Delta w / \Delta z = \left( \overline{\Delta z} / \Delta z \right) = \left( -\Delta z / \Delta z \right)^2 = 1\). However, on each nonzero point on line \(\Delta y = \Delta x\),
+Then \(\Delta w/\Delta z = \left(\overline{\Delta z} / \Delta z\right)^2\).
+If \(\Delta z\) is on the real axis, \(\overline{\Delta z} = \Delta z\) and \(\left(\overline{\Delta z} / \Delta z\right)^2 = \left( \Delta z / \Delta z \right)^2 = 1\).
+If \(\Delta z\) is on the imaginary axis, \(\overline{\Delta z} = -\Delta z\) and \(\Delta w / \Delta z = \left( \overline{\Delta z} / \Delta z \right) = \left( -\Delta z / \Delta z \right)^2 = 1\).
+However, on each nonzero point on line \(\Delta y = \Delta x\),
 
 \[
   \frac{\Delta w}{\Delta z} = \left( \frac{\overline{\Delta z}}{\Delta z} \right)^2 = \left( \frac{\Delta x - i\Delta x}{\Delta x + i\Delta x} \right)^2 = \left( \frac{1 - i}{1 + i} \right)^2 = (-i)^2 = -1
 \]
 
-If the limit of \(\Delta w / \Delta z\) exists, it can be found by letting \(\Delta z\) approach the origin in any manner. However, the limit is 1 if \(\Delta z\) approached the origin along the real or imaginary axis, or \(-1\) if \(\Delta z\) approached the origin along the line \(\Delta y = \Delta x\). Hence, the limit does not exist and \(f'(0)\) also does not exist.
+If the limit of \(\Delta w / \Delta z\) exists, it can be found by letting \(\Delta z\) approach the origin in any manner.
+However, the limit is 1 if \(\Delta z\) approached the origin along the real or imaginary axis, or \(-1\) if \(\Delta z\) approached the origin along the line \(\Delta y = \Delta x\).
+Hence, the limit does not exist and \(f'(0)\) also does not exist.
 
 \section{Section 24 \#3 (c)}
 \(f(z)\) can be written as follows:
@@ -78,14 +83,18 @@ If the limit of \(\Delta w / \Delta z\) exists, it can be found by letting \(\De
   f(z) = f(x + iy) = (x + iy)y = xy + iy^2
 \]
 
-Let \(u(x, y) := xy\) and \(v(x, y) = y^2\). If \(f\) is differentible at \(z_0 = x_0 + iy_0\), the first-order partial derivatives of \(u\) and \(v\) must exist at \((x_0, y_0)\), and Cauchy-Riemann equation must be satisfied. Since the partial derivatives exist at every \((x_0, y_0)\), let's check the Cauchy-Riemann equation.
+Let \(u(x, y) := xy\) and \(v(x, y) = y^2\).
+If \(f\) is differentible at \(z_0 = x_0 + iy_0\), the first-order partial derivatives of \(u\) and \(v\) must exist at \((x_0, y_0)\), and Cauchy-Riemann equation must be satisfied.
+Since the partial derivatives exist at every \((x_0, y_0)\), let's check the Cauchy-Riemann equation.
 
 \begin{align*}
   u_x(x_0, y_0) = v_y(x_0, y_0) &\Longleftrightarrow y_0 = 2y_0 \\
   u_y(x_0, y_0) = -v_x(x_0, y_0) &\Longleftrightarrow x_0 = 0
 \end{align*}
 
-Only \((0, 0)\) satistifes the equation. \(f\) cannot be differentible at points other than \((0, 0)\). Let's check if it is differentible at \((0, 0)\):
+Only \((0, 0)\) satistifes the equation.
+\(f\) cannot be differentible at points other than \((0, 0)\).
+Let's check if it is differentible at \((0, 0)\):
 
 \begin{align*}
   \lim_{\Delta z \to 0} \frac{f(\Delta z) - f(0)}{\Delta z - 0} =& \lim_{\Delta z \to 0} \frac{f(\Delta z)}{\Delta z} = \lim_{\Delta z \to 0} \frac{\Delta z \operatorname{Im} \Delta z}{\Delta z} \\
