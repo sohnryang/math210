@@ -14,14 +14,14 @@
 
 \pgfplotsset{compat=1.15}
 \usetikzlibrary{arrows}
-\
+
 \newcommand\Overline[2][0.8pt]{%
   \begin{tikzpicture}[baseline=(a.base)]
     \node[inner xsep=0pt,inner ysep=1.5pt] (a) {$#2$};
     \draw[line width= #1] (a.north west) -- (a.north east);
   \end{tikzpicture}
 }
-newtheorem{theorem}{Theorem}
+\newtheorem{theorem}{Theorem}
 
 \setmainhangulfont{Noto Serif CJK KR}[
   UprightFont=* Light, BoldFont=* Bold,
