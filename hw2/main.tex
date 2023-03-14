@@ -75,7 +75,7 @@ By applying the polar form of the Cauchy-Riemann equation,
 \]
 
 We can see that the equation holds for every point in the domain.
-From the theorem in section 24, it follows that \(f\) is differentiable over its whole domain.
+From the theorem in section~24, it follows that \(f\) is differentiable over its whole domain.
 The derivative can be written as the following:
 \[
   f'(z) = f'(e^{i\theta}) = e^{-i\theta} (u_r + iv_r) = \frac{1}{r} e^{-i\theta} = \frac{1}{z}
@@ -84,8 +84,8 @@ The derivative can be written as the following:
 Let \(h(z) = z^2 + 1\).
 For all \(z_0\), we can write
 \begin{align*}
-  h'(z_0) &= \lim_{\Delta z \to 0} \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z} = \lim_{\Delta z \to 0} \frac{(z + \Delta z)^2 - z^2}{\Delta z} = \lim_{\Delta z \to 0} \frac{2z\Delta z + \Delta z^2}{\Delta z} \\
-          &= \lim_{\Delta z \to 0} (2z + \Delta z) = 2z
+  h'(z_0) &= \lim_{\Delta z \to 0} \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z} = \lim_{\Delta z \to 0} \frac{(z_0 + \Delta z)^2 - z_0^2}{\Delta z} = \lim_{\Delta z \to 0} \frac{2z_0\Delta z + \Delta z^2}{\Delta z} \\
+          &= \lim_{\Delta z \to 0} (2z_0 + \Delta z) = 2z_0
 \end{align*}
 and conclude that \(h\) is analytic.
 Furthermore, we can observe that
@@ -93,7 +93,8 @@ Furthermore, we can observe that
   h(z) = h(x + iy) = (x + iy)^2 + 1 = (x^2 - y^2 + 1) + 2xyi
 \]
 and \(\operatorname{Im} h(z) = 2xy > 0\) where \(x > 0, y > 0\).
-From this, \(r > 0, 0 < \theta < 2\pi\) holds where \(r\exp(i\theta) = h(x + iy)\) and \(x > 0, y > 0\).
+For \(r\exp(i\theta) = h(x + iy)\), \(\operatorname{Im} h(z) \not = 0\) implies \(h(z) \not = 0\), so \(r > 0\).
+Also, \(\operatorname{Im} h(z) \not = 0\) implies \(h(z) \not \in \mathbb{R}\), so \(0 < \theta < 2\pi\) holds.
 This means that \(G(z)\) is defined for all \(z = x + iy\) where \(x > 0, y > 0\) and thus analytic, using the chain rule.
 Also, we can know that the following holds in the quadrant \(x > 0, y > 0\).
 \[
@@ -102,18 +103,18 @@ Also, we can know that the following holds in the quadrant \(x > 0, y > 0\).
 
 \section{Section 26 \#7}
 By the definition of analytic functions, \(f\) is differentiable everywhere in \(D\).
-We can write \(f(z) = f(x + iy) = u(x, y) + iv(x, y)\), and \(v(x, y) = 0\) everywhere in \(D\).
+We can write \(f(z) = f(x + iy) = u(x, y) + iv(x, y)\), and \(v(x, y) = 0\) everywhere in \(D\), so \(v_x, v_y\) are also 0 in \(D\).
 By the Cauchy-Riemann equation,
 \[
   u_x = v_y = 0, \quad u_y = -v_x = 0
 \]
 
-This means that \(f'(z) = u_x(x, y) + iv_x(x, y) = 0\) everywhere in \(D\), so \(f(z)\) is constant throughout \(D\) by the theorem in section 25.
+This means that \(f'(z) = u_x(x, y) + iv_x(x, y) = 0\) everywhere in \(D\), so \(f(z)\) is constant throughout \(D\) by the theorem in section~25.
 
 \section{Section 27 \#1}
 Using the polar form of the Cauchy-Riemann equation, the following holds.
 \[
-  ru_r = v_\theta, u_\theta = -rv_r
+  ru_r = v_\theta,\quad u_\theta = -rv_r
 \]
 
 Since \(f\) is analytic in \(D\), the first-order partial derivatives of \(u\) and \(v\) with respect to \(r\) and \(\theta\) exists in \(D\).
@@ -121,7 +122,7 @@ By the assumption of continuity of partial derivatives, we can differentiate bot
 \[
   u_r + ru_{rr} = v_{\theta r}
 \]
-Differentiating both sides of \(u_\theta = -rv_r\), we get
+Differentiating both sides of \(u_\theta = -rv_r\) with respect to \(\theta\), we get
 \[
   u_{\theta\theta} = -rv_{r\theta}
 \]
@@ -136,29 +137,42 @@ Rearranging the equation, we get the desired result.
 \]
 
 \section{Section 27 \#2}
-By implicit function theorem, the following holds for \(u\) and \(v\).
+By implicit function theorem, the following holds for \(u\) and \(v\) along the points of the curves \(u(x, y) = c_1, v(x, y) = c_2\) .
 \[
   \frac{\partial u}{\partial x} + \frac{\partial u}{\partial y} \frac{dy}{dx} = 0, \quad \frac{\partial v}{\partial x} + \frac{\partial v}{\partial y} \frac{dy}{dx} = 0
 \]
 
-Since \(f'(z_0) = f_x(z_0) \not = 0\), \(u(x_0, y_0) \not = 0\) and \(v(x_0, y_0) \not = 0\) holds.
-Then the slope of the tangent line of \(u(x, y) = c_1\) at \((x_0, y_0)\) is \(dy/dx = -u_x / u_y\), and the slope of the tangent line of \(v(x, y) = c_2\) at \((x_0, y_0)\) is \(dy/dx = -v_x / v_y\).
+Since \(f'(z_0) = f_x(z_0) \not = 0\), at least one of \(u_x(x_0, y_0) \not = 0\) and \(v_x(x_0, y_0) \not = 0\) holds.
+
+If \(u_x(x_0, y_0) \not = 0\), \(v_x(x_0, y_0) \not = 0\) both hold, Then the slope of the tangent line of \(u(x, y) = c_1\) at \((x_0, y_0)\) is \(dy/dx = -u_x / u_y\), and the slope of the tangent line of \(v(x, y) = c_2\) at \((x_0, y_0)\) is \(dy/dx = -v_x / v_y\).
 By the Cauchy-Riemann equation, \(u_x = v_y, u_y = -v_x\) holds, so \(-v_x / v_y = u_y / u_x\).
 The slope of \(u(x, y) = c_1\) is \(-u_x / u_y\) and the slope of \(v(x, y) = c_2\) is \(u_y / u_x\).
 Since \((-u_x / u_y)(u_y / u_x) = -1\), the tangent lines are perpendicular.
 
+If \(u_x(x_0, y_0) = 0\), then the slope of the tangent line of \(u(x, y) = c_1\) at \((x_0, y_0)\) is \(dy/dx = -u_x / u_y = 0\).
+Using the implicit function theorem again, we get
+\[
+  \frac{\partial v}{\partial x} \frac{dx}{dy} + \frac{\partial v}{\partial y} = 0
+\]
+along the points of the curve \(v(x, y) = c_2\), and conclude that \(dx/dy = -v_y / v_x = u_x / u_y = 0\) using the Cauchy-Riemann equation.
+This implies that the tangent line of \(v(x, y) = c_2\) at \((x_0, y_0)\) is perpendicular to the \(x\)-axis, so the tangent lines are also perpendicular in this case.
+
+By using similar argument to \(v_x(x_0, y_0) = 0\) case, the tangent line of \(u(x, y) = c_1\) at \((x_0, y_0)\) is perpendicular to the \(x\)-axis, and the tangent line of \(v(x, y) = c_2\) at the same point has a slope of 0.
+In conclusion, the tangent lines of both curves at \((x_0, y_0)\) are perpendicular.
+
+
 \section{Section 29 \#1}
 Suppose that the \(f(z)\) has a constant value \(w_0\) throughout some neighborhood in \(D\).
 A constant function \(f(z) = w_o\) can be such function.
-By the theorem in section 28, such \(f\) is unique, so only the constant function \(f(z) = w_0\) can be constant throughout the neighborhood in \(D\), which is contradiction.
+By the theorem in section~28, such \(f\) is unique, so only the constant function \(f(z) = w_0\) can be constant throughout the neighborhood in \(D\), which is contradiction.
 Thus, the \(f(z)\) which is analytic and not constant throughout \(D\) cannot be constant throughout any neighborhood contained in \(D\).
 
 \section{Section 29 \#2}
 Let \(D_1, D_2, D_3\) be domains of \(f_1, f_2, f_3\), respectively.
 Then there exists an open set contained in \(D_1 \cap D_2\), and same holds for \(D_2 \cap D_3\).
-Since \(f_1(z) = f_2(z)\) for every point in \(D_1 \cap D_2\), \(f_2\) is an analytic continuation of \(f_1\) by the theorem in section 28.
+Since \(f_1(z) = f_2(z)\) for every point in \(D_1 \cap D_2\), \(f_2\) is an analytic continuation of \(f_1\) by the theorem in section~28.
 
-Likewise, \(f_2(z) = f_3(z)\) for every point in \(D_2 \cap D_3\) implies \(f_3\) is an analytic continuation of \(f_2\) the theorem in section 28.
+Likewise, \(f_2(z) = f_3(z)\) for every point in \(D_2 \cap D_3\) implies \(f_3\) is an analytic continuation of \(f_2\) the theorem in section~28.
 
 For \(z = x + iy\) where \(x > 0, y > 0\), \(z\) can be written as \(r\exp(i\theta) = r\exp(i(\theta + 2\pi)) = r(\cos\theta + i\sin\theta)\) where \(r > 0, 0 < \theta < \pi / 2\).
 \(f_1(z)\) can be written as the following:
