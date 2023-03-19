@@ -1,0 +1,231 @@
+\documentclass{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{kotex}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+
+\newcommand\Overline[2][0.4pt]{%
+  \begin{tikzpicture}[baseline=(a.base)]
+    \node[inner xsep=0pt,inner ysep=1.5pt] (a) {$#2$};
+    \draw[line width= #1] (a.north west) -- (a.north east);
+  \end{tikzpicture}
+}
+\newtheorem{theorem}{Theorem}
+
+\setmainhangulfont{Noto Serif CJK KR}[
+  UprightFont=* Light, BoldFont=* Bold,
+  Script=Hangul, Language=Korean, AutoFakeSlant,
+]
+\setsanshangulfont{Noto Sans CJK KR}[
+  UprightFont=* DemiLight, BoldFont=* Medium,
+  Script=Hangul, Language=Korean
+]
+\setmathhangulfont{Noto Sans CJK KR}[
+  SizeFeatures={
+    {Size=-6,  Font=* Medium},
+    {Size=6-9, Font=*},
+    {Size=9-,  Font=* DemiLight},
+  },
+  Script=Hangul, Language=Korean
+]
+\title{MATH210: Homework 3 (due Mar. 21)}
+\author{손량(20220323)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+\section{Section 29 \#5}
+Assume that \(f(x)\) is pure imaginary at each point \(x\) on the segment of real axis lying in \(D\).
+Let \(F(z) = -\Overline{f(\Overline{z})}\).
+The components of the functions can be written as
+\[
+  f(z) = u(x, y) + iv(x, y), \quad F(z) = U(x, y) + iV(x, y)
+\]
+where \(z = x + iy\).
+By definition of \(F(z)\), we can write
+\[
+  F(z) = -\Overline{f(\Overline{z})} = -u(x, -y) + iv(x, -y)
+\]
+So \(U(x, y)\) and \(V(x, y)\) can be written as follows:
+\begin{align}\label{sec1_comprel}
+  U(x, y) = -u(x, t), \quad V(x, y) = v(x, t)
+\end{align}
+Where \(t = -y\).
+Since \(f(x + it)\) is an analytic function of \(x + it\), the first order partial derivatives of the functions \(u(x, t)\) and \(v(x, t)\) are continuous throughout \(D\) and satisfies the Cauchy-Riemann equations.
+\begin{align}\label{sec1_creq}
+  u_x = v_t, \quad u_t = -v_x
+\end{align}
+Also, we can write
+\begin{align*}
+  U_x(x, y) &= -u_x(x, t), \quad V_y(x, y) = v_t(x, t) \frac{dt}{dy} = -v_t(x, t) \\
+  U_y(x, y) &= -u_t(x, t) \frac{dt}{dy} = u_t(x, t), \quad V_x(x, y) = v_x(x, t)
+\end{align*}
+By (\ref{sec1_creq}), we can see that
+\[
+  U_x = V_y, \quad U_y = -V_x
+\]
+By the sufficient conditions of differentiability, \(F\) is differentiable throughout \(D\), so it is also analytic.
+Moreover, since \(f(x)\) is pure imaginary on the segment of the imaginary axis lying in \(D\), \(u(x, 0) = 0\) holds on that segment.
+Using (\ref{sec1_comprel}), we can write
+\[
+  F(x) = U(x, 0) + iV(x, 0) = -u(x, 0) + iv(x, 0) = iv(x, 0) = f(x)
+\]
+Thus, we can conclude that \(F(z) = f(z)\) at each point in the segment.
+By the theorem in section~28, \(F(z) = f(z)\) holds throughout \(D\), so \(f(z) = -\Overline{f(\Overline{z})}\).
+
+Let's prove the converse.
+Assume that \(\Overline{f(z)} = -f(\Overline{z})\), then it can be written as:
+\[
+  u(x, y) - iv(x, y) = -u(x, -y) - iv(x, -y)
+\]
+If \((x, 0)\) is a point on the segment of the real axis lying on \(D\),
+\[
+  u(x, 0) - iv(x, 0) = -u(x, 0) - iv(x, 0)
+\]
+We see that \(u(x, 0) = 0\).
+Hence \(f(x)\) is pure imaginary on the segment of the imaginary axis lying on \(D\).
+
+\section{Section 30 \#9}
+Assume that \(z = n\pi\) where \(n = 0, \pm 1, \pm 2, \dots\).
+We can write
+\begin{align*}
+  \Overline{\exp(iz)} &= \Overline{\cos z + i\sin z} = \Overline{\cos (n\pi) + i\sin (n\pi)} = \cos (n\pi) - i\sin (n\pi) = \cos (n\pi) \\
+                      &= \exp(iz) = \exp(i\Overline{z})
+\end{align*}
+and get the desired result.
+
+Let's prove the converse.
+Assume that \(\Overline{\exp(iz)} = \exp(i\Overline{z})\) holds.
+The following holds for \(z = x + iy\).
+\begin{align}
+  \nonumber \Overline{\exp(iz)} &= \Overline{\exp(ix - y)} = \Overline{\exp(-y)\exp(ix)} = e^{-y} \Overline{\exp(ix)} = e^{-y} \Overline{\cos x + i\sin x} \\
+                      \label{sec2_lhs}&= e^{-y} (\cos x - i\sin x) = e^{-y} (\cos (-x) + i\sin(-x)) = e^{-y} \exp(-ix)
+\end{align}
+We can also write
+\begin{align}\label{sec2_rhs}
+  \exp(i\Overline{z}) = \exp{i(x - iy)} = e^y \exp(ix)
+\end{align}
+From (\ref{sec2_lhs}) and (\ref{sec2_rhs}), \(\Overline{\exp(iz)} \exp(i\Overline{z}) = 1\) holds.
+For \(\Overline{\exp(iz)} = \exp(i\Overline{z})\) to hold, from
+\[
+  |\Overline{\exp(iz)} \exp(i\Overline{z})| = 1
+\]
+\(|\Overline{\exp(iz)}| = |\exp(i\Overline{z})| = 1\) should hold.
+We can write
+\[
+  |\Overline{\exp(iz)}| = |e^{-y} \exp(-ix)| = e^{-y} = 1,\, |\exp(i\Overline{z})| = |e^y \exp(ix)| = e^y = 1
+\]
+So we know that \(y = 0\).
+Then, \(\Overline{\exp(iz)} = \exp(i\Overline{z})\) so \(\exp(-ix) = \exp(ix)\).
+We can write
+\[
+  \exp(-ix) = \cos (-x) + i\sin(-x) = \cos x - i\sin x, \quad \exp(ix) = \cos x + i\sin x
+\]
+\(\sin x = 0\) is satisfied for \(x = 0, \pm \pi, \pm 2\pi, \dots\), so the converse is also true.
+
+\section{Section 30 \#13}
+Since \(f\) is analytic in \(D\), \(u\) and \(v\) have continuous partial derivatives in \(D\) and they satisfy the Cauchy-Riemann equations.
+\begin{align}\label{sec3_creq}
+  u_x = v_y, \quad u_y = -v_x
+\end{align}
+Using rules for differentiation, we get
+\begin{align*}
+  U_x(x, y) &= u_x(x, y) e^{u(x, y)} \cos v(x, y) - v_x(x, y) e^{u(x, y)} \sin v(x, y) \\
+  U_y(x, y) &= u_y(x, y) e^{u(x, y)} \cos v(x, y) - v_y(x, y) e^{u(x, y)} \sin v(x, y) \\
+  V_x(x, y) &= u_x(x, y) e^{u(x, y)} \sin v(x, y) + v_x(x, y) e^{u(x, y)} \cos v(x, y) \\
+  V_y(x, y) &= u_y(x, y) e^{u(x, y)} \sin v(x, y) + v_y(x, y) e^{u(x, y)} \cos v(x, y)
+\end{align*}
+Using (\ref{sec3_creq}), we can write
+\begin{align*}
+  U_x(x, y) &= u_x(x, y) e^{u(x, y)} \cos v(x, y) + u_y(x, y) e^{u(x, y)} \sin v(x, y) \\
+  U_y(x, y) &= u_y(x, y) e^{u(x, y)} \cos v(x, y) - u_x(x, y) e^{u(x, y)} \sin v(x, y) \\
+  V_x(x, y) &= u_x(x, y) e^{u(x, y)} \sin v(x, y) - u_y(x, y) e^{u(x, y)} \cos v(x, y) \\
+  V_y(x, y) &= u_y(x, y) e^{u(x, y)} \sin v(x, y) + u_x(x, y) e^{u(x, y)} \cos v(x, y)
+\end{align*}
+From this, we know that
+\[
+  U_x = V_y, \quad U_y = -V_x
+\]
+Let \(F(z) = U(x, y) + iV(x, y)\).
+Then \(U\) and \(V\) have continuous partial derivatives in \(D\), and they satisfy the Cauchy-Riemann equations.
+By the sufficient condition for differentiability, \(F\) is an analytic function.
+Using the theorem in section~27, the component functions \(U\) and \(V\) are harmonic in \(D\).
+
+\section{Section 30 \#14}
+\subsection{Solution for (a)}
+For any nonzero \(x \in \mathbb{C}\), \(x^1 = x\) and we know that \(x^0 = x^{1 - 1} = x / x = 1\).
+
+Then \((e^z)^0 = e^{0 \cdot z} = 1\) since \(e \not = 0\) and \(e^z \not = 0\).
+
+Suppose that \((e^z)^k = e^{kz}\) for \(k \geq 0\). Using the rules of exponentation,
+\[
+  (e^z)^{k + 1} = (e^z)^k (e^z)^1 = e^{kz} e^z = e^{(k + 1)z}
+\]
+By mathematical induction, we can see that \((e^z)^n = e^{nz}\) holds for all nonnegative integer \(n\).
+
+\subsection{Solution for (b)}
+For \(m = -n = 1, 2, \dots\), \((e^z)^n\) = \((1 / e^z)^m\) holds by the definition of negative integer in section~8.
+By the result proved in (a), \((1 / e^z)^m = 1 / (e^z)^m = 1/ e^{mz}\) holds.
+From property~6 in section~30, it follows that \(1 / e^{mz} = e^{-mz} = e^{nz}\).
+So, \((e^z)^n = e^{nz}\) also holds for negative integer \(n\).
+
+\section{Section 33 \#2 (c)}
+If \(-1 + \sqrt{3}i\) then \(r = 2\) and \(\Theta = 2\pi / 3\).
+Hence
+\[
+  \log (-1 + \sqrt{3}i) = \ln r + i(\Theta + 2n\pi) = \ln 2 + i \left( \frac{2\pi}{3} + 2n\pi \right) = \ln 2 + 2 \left( n + \frac{1}{3} \right) \pi i
+\]
+where \(n = 0, \pm 1, \pm 2, \dots\).
+
+\section{Section 33 \#7}
+Let \(z = x + yi = re^{i\theta}\).
+As written in section~7, \(r = |z| = \sqrt{x^2 + y^2}\) and \(\tan \theta = y / x\) holds, so \(\theta = \tan^{-1} (y / x)\) satisfies \(x + yi = re^{i\theta}\).
+Using the definition in section~33, we can write
+\begin{align*}
+  \log z &= \ln r + i\theta \quad (r > 0,\, \alpha < \theta < \alpha + 2\pi) \\
+         &= \ln \sqrt{x^2 + y^2} + i\tan^{-1} \left( \frac{y}{x} \right) \\
+         &= \frac{1}{2} \ln (x^2 + y^2) + i\tan^{-1} \left( \frac{y}{x} \right)
+\end{align*}
+We can write the component functions as follows:
+\[
+  u(x, y) = \frac{1}{2} \ln (x^2 + y^2), \quad v(x, y) = \tan^{-1} \left( \frac{y}{x} \right)
+\]
+\(u\) and \(v\) has continuous partial derivatives in its domain, so we can differentiate them.
+\begin{align*}
+  u_x(x, y) &= \frac{x}{x^2 + y^2}, \quad u_y(x, y) = \frac{y}{x^2 + y^2} \\
+  v_x(x, y) &= -\frac{y}{x^2} \frac{1}{1 + \left( \frac{y}{x} \right)^2} = -\frac{y}{x^2 + y^2} \\
+  v_y(x, y) &= \frac{1}{x} \frac{1}{1 + \left( \frac{y}{x} \right)^2} = \frac{x}{x^2 + y^2}
+\end{align*}
+Then \(u_x = v_y, u_y = -v_x\) so the Cauchy-Riemann equation holds, and \(\log z\) is analytic in its domain by the sufficient conditions of differentiability.
+Thus, \(\log z\) is differentiable in its domain and we can write
+\[
+  \frac{d}{dz} \log z = u_x(x, y) + iv_x(x, y) = \frac{x}{x^2 + y^2} - \frac{iy}{x^2 + y^2} = \frac{x - yi}{x^2 + y^2} = \frac{\Overline{z}}{|z|^2} = \frac{\Overline{z}}{z\Overline{z}} = \frac{1}{z}
+\]
+and get the desired result.
+
+\section{Section 33 \#8}
+By the definition in section~31, we can write
+\[
+  \log z = \ln |z| + i \arg z
+\]
+Since \(\log z = i\pi / 2\), it is clear that \(|z| = 1\) and \(\arg z = \pi / 2 + 2n\pi\) where \(n = 0, \pm 1, \pm 2, \dots\). Then \(z\) can be written as
+\[
+  z = 1 \cdot \exp \left( i \left( \frac{\pi}{2} + 2n\pi \right) \right) = e^{i\pi / 2} = \cos \left( \frac{\pi}{2} \right) + i\sin \left( \frac{\pi}{2} \right) = i
+\]
+and get the root.
+
+\end{document}
