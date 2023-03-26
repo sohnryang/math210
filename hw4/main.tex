@@ -1,0 +1,208 @@
+\documentclass{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{kotex}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+
+\newcommand\Overline[2][0.8pt]{%
+  \begin{tikzpicture}[baseline=(a.base)]
+    \node[inner xsep=0pt,inner ysep=1.5pt] (a) {$#2$};
+    \draw[line width= #1] (a.north west) -- (a.north east);
+  \end{tikzpicture}
+}
+\newtheorem{theorem}{Theorem}
+
+\setmainhangulfont{Noto Serif CJK KR}[
+  UprightFont=* Light, BoldFont=* Bold,
+  Script=Hangul, Language=Korean, AutoFakeSlant,
+]
+\setsanshangulfont{Noto Sans CJK KR}[
+  UprightFont=* DemiLight, BoldFont=* Medium,
+  Script=Hangul, Language=Korean
+]
+\setmathhangulfont{Noto Sans CJK KR}[
+  SizeFeatures={
+    {Size=-6,  Font=* Medium},
+    {Size=6-9, Font=*},
+    {Size=9-,  Font=* DemiLight},
+  },
+  Script=Hangul, Language=Korean
+]
+\title{MATH210: Homework 4 (due Mar. 28)}
+\author{손량(20220323)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+\section{Section 33 \#12}
+Let \(z - 1 = (x - 1) + iy = r\exp(i\theta)\).
+By the definition of logarithm in section~33, we can write
+\[
+  \log (z - 1) = \ln (r) + i(\Theta + 2n\pi) \quad (n = 0, \pm 1, \pm 2, \dots)
+\]
+Where \(\theta\) has any one of values \(\theta = \Theta + 2n\pi\; (n = 0, \pm 1, \pm 2, \dots)\), and \(\Theta = \operatorname{Arg} z\).
+Se we can write
+\begin{align*}
+  \operatorname{Re} [\log (z - 1)] &= \operatorname{Re} [\ln r + i(\Theta + 2n\pi)] \quad (n = 0, \pm 1, \pm 2, \dots) \\
+                                   &= \ln r = \ln |z - 1| = \ln \sqrt{(x - 1)^2 + y^2} = \frac{1}{2} \ln [(x - 1)^2 + y^2]
+\end{align*}
+We can also write
+\begin{align}\label{sec1_log_single}
+  \log z = \ln r + i\theta \quad (r > 0, \alpha < \theta < \alpha + 2\pi)
+\end{align}
+where \(\alpha\) is some real number.
+Then, \(\log z\) in (\ref{sec1_log_single}) can be considered as a single-valued function.
+As shown in section~33, \(\log z\) is analytic throughout the domain \(r > 0, \alpha < \theta < \alpha + 2\pi\).
+Thus, \(\log (z - 1)\) is analytic throughout the domain \(z \not = 1\), and a component function, \(\operatorname{Re} [\log (z - 1)]\) is harmonic in \(z \not = 1\) by the theorem in section~27.
+
+\section{Section 36 \#1 (b)}
+As shown in section~35, we can write
+\begin{align}
+  \nonumber (1 + i)^i &= e^{i\log (1 + i)} = \exp(i[\ln |1 + i| + i(\operatorname{Arg} (1 + i) + 2n\pi)]) \\
+  \nonumber           &= \exp \left( i^2 \left( \frac{\pi}{4} + 2n\pi \right) \right) \exp(i\ln \sqrt{2}) \\
+  \label{sec2_exp}    &= \exp \left( -\frac{\pi}{4} - 2n\pi \right) \exp \left( i \frac{\ln 2}{2} \right)
+\end{align}
+where \(n = 0, \pm 1, \pm 2, \dots\).
+Then, (\ref{sec2_exp}) can be written as \(\exp (-\pi / 4 + 2n\pi) \exp (i \ln 2 / 2)\) and we get the desired result.
+
+\section{Section 36 \#6}
+As shown in section~35, we can calculate \(|z^a|\) by using the definition in section~33. (\(n = 0, \pm 1, \pm 2, \dots\))
+\begin{align*}
+  |z^a| &= |\exp(a \log z)| = |\exp(a[\ln |z| + i(\operatorname{Arg} z + 2n\pi)])| \\
+        &= |\exp(a \ln |z|)| |\exp(i(\operatorname{Arg} z + 2n\pi))| \\
+        &= |\exp(a \ln |z|)| \cdot 1 = |\exp(a \ln |z|)| = \exp(a \ln |z|)
+\end{align*}
+Also, we can calculate the principal value of \(|z|^a\) as follows: (again, \(n = 0, \pm 1, \pm 2, \dots\))
+\begin{align*}
+  |z|^a &= \exp(a \operatorname{Log} |z|) = \exp(a[\ln |z| + i(\operatorname{Arg} |z| + 2n\pi)]) \\
+        &= \exp(a(\ln |z| + 2ni\pi)) = \exp(a \ln |z|) e^{2ni\pi} = \exp(a \ln |z|)
+\end{align*}
+Then, we get the desired result.
+
+\section{Section 36 \#7}
+As shown in section~35, we can write (\(n = 0, \pm 1, \pm 2, \dots\))
+\begin{align*}
+  i^c &= \exp(c \log i) = \exp (c[\ln 1 + i(\operatorname{Arg} i + 2n\pi)]) = \exp \left( ic \left( \frac{\pi}{2} + 2n\pi \right) \right) \\
+      &= \exp \left( i(a + bi) \left( \frac{\pi}{2} + 2n\pi \right) \right) = \exp \left( ia \left( \frac{\pi}{2} + 2n\pi \right) \right) \exp \left( -b \left( \frac{\pi}{2} + 2n\pi \right) \right)
+\end{align*}
+We can see that \(i^c\) is multiple valued, as different values of \(n\) results in different values of \(i^c\) unless \(c = 0, \pm 1, \pm 2, \dots\).
+
+We can calculate \(|i^c|\) as follows:
+\begin{align*}
+  |i^c| &= \left| \exp \left( ia \left( \frac{\pi}{2} + 2n\pi \right) \right) \exp \left( -b \left( \frac{\pi}{2} + 2n\pi \right) \right) \right| \\
+        &= \left| \exp \left( ia \left( \frac{\pi}{2} + 2n\pi \right) \right) \right| \left| \exp \left( -b \left( \frac{\pi}{2} + 2n\pi \right) \right) \right| \\
+        &= \left| \cos \left( a \left( \frac{\pi}{2} + 2n\pi \right) \right) + i\sin \left( a \left( \frac{\pi}{2} + 2n\pi \right) \right) \right| \left| \exp \left( -b \left( \frac{\pi}{2} + 2n\pi \right) \right) \right| \\
+        &= \left| \exp \left( -b \left( \frac{\pi}{2} + 2n\pi \right) \right) \right|
+\end{align*}
+Since \(f(x) = e^x\) is an one-to-one function, \(b = 0\) has to hold if the values of \(|i^c|\) are all the same.
+Thus, \(c\) has to be real.
+
+\section{Section 38 \#2}
+\subsection{Solution for (a)}
+Using expression~4 in section~37, we can write
+\begin{align}
+  \nonumber e^{iz_1} e^{iz_2} &= (\cos z_1 + i\sin z_1)(\cos z_2 + i\sin z_2) \\
+  \label{sec5_1_rel}          &= \cos z_1 \cos z_2 - \sin z_1 \sin z_2 + i(\sin z_1 \cos z_2 + \cos z_1 \sin z_2)
+\end{align}
+Using relation~3 in section~37, we can plug \(z_1 = -z_1, z_2 = -z_2\) to (\ref{sec5_1_rel}) and obtain
+\begin{align*}
+  e^{-iz_1} e^{-iz_2} &= \cos(-z_1) \cos(-z_2) - \sin(-z_1) \sin(-z_2) \\
+                      &+ i(\sin(-z_1) \cos(-z_2) + \cos(-z_1) \sin(-z_2)) \\
+                      &= \cos z_1 \cos z_2 - \sin z_1 \sin z_2 - i(\sin z_1 \cos z_2 + \cos z_1 \sin z_2)
+\end{align*}
+
+\subsection{Solution for (b)}
+Using the provided fact, we can write
+\begin{align*}
+  \sin(z_1 + z_2) =& \frac{1}{2i} \left( e^{iz_1} e^{iz_2} = e^{-iz_1} e^{-iz_2} \right) \\
+                  =& \frac{1}{2i} \{[\cos z_1 \cos z_2 - \sin z_1 \sin z_2 + i(\sin z_1 \cos z_2 + \cos z_1 \sin z_2)] \\
+                   &- [\cos z_1 \cos z_2 - \sin z_1 \sin z_2 - i(\sin z_1 \cos z_2 + \cos z_1 \sin z_2)]\} \\
+                  =& \frac{1}{2i} \cdot 2i(\sin z_1 \cos z_2 + \cos z_1 \sin z_2) = \sin z_1 \cos z_2 + \cos z_1 \sin z_2
+\end{align*}
+
+\section{Section 38 \#12 (a)}
+Let \(z = x + iy\).
+The equality~13 in section~37 shows that the following holds:
+\[
+  \sin z = \sin x \cosh y + i \cos x \sinh y
+\]
+From this, we can know that \(\sin z \in \mathbb{R}\) if \(y = 0\).
+Using the reflection principle from section~29, we can conclude that \(\Overline{\sin z} = \sin \Overline{z}\) since \(\sin z\) is an entire function.
+
+\section{Section 38 \#14 (a)}
+Let \(z = x + iy\).
+Using equality~14 in section~37, the following holds:
+\[
+  \cos (iz) = \cos (-y + ix) = \cos (-y) \cosh x - i \sin (-y) \sinh x = \cos y \cosh x + i \sin y \sinh x
+\]
+From this, we can know that \(\cos (iz) \in \mathbb{R}\) if \(y = 0\).
+Using the reflection principle from section~29, we can conclude that \(\Overline{\cos (iz)} = \cos (i\Overline{z})\) since \(\cos (iz)\) is entire function.
+
+\section{Section 42 \#2 (d)}
+Let \(z = x + iy\), where \(x > 0\).
+Then we can write
+\begin{align*}
+  \int^\infty_0 e^{-zt} dt &= \int^\infty_0 e^{-(x + iy)t} dt = \int^\infty_0 e^{-xt} e^{-iyt} dt = \int^\infty_0 e^{-xt} (\cos(-yt) + i \sin(-yt)) dt \\
+                           &= \int^\infty_0 e^{-xt} \cos(-yt) dt + i \int^\infty_0 e^{-xt} \sin(-yt) dt
+\end{align*}
+Using integration by parts, we get
+\begin{align}
+  \nonumber \int^u_0 e^{-xt} \cos(-yt) dt &= \left[ -\frac{1}{x} e^{-xt} \cos(-yt) \right]^u_0 - \int^u_0 \left( -\frac{1}{x} e^{-xt} \right) (y \sin (-yt)) dt \\
+  \label{sec8_int1}                       &= \frac{1 - e^{-xu}\cos(-yu)}{x} + \frac{y}{x} \int^u_0 e^{-xt} \sin(-yt) dt
+\end{align}
+and we also get
+\begin{align}
+  \nonumber \int^u_0 e^{-xt} \sin(-yt) dt &= \left[ -\frac{1}{x} e^{-xt} \sin(-yt) \right]^u_0 - \int^u_0 \left( -\frac{1}{x} e^{-xt} \right) (-y \cos (-yt)) dt \\
+  \label{sec8_int2}                       &= -\frac{e^{-xu} \sin(-yu)}{x} - \frac{y}{x} \int^u_0 e^{-xt} \cos(-yt) dt
+\end{align}
+Using (\ref{sec8_int1}) and (\ref{sec8_int2}), we get
+\begin{align*}
+  \int^u_0 e^{-xt} \cos(-yt) dt &= -\frac{x \cos\left(u y\right) - y \sin\left(u y\right)}{x^{2} + y^{2}}e^{-ux} + \frac{x}{x^2 + y^2} \\
+  \int^u_0 e^{-xt} \sin(-yt) dt &= \frac{y \cos\left(u y\right) + x \sin\left(u y\right)}{x^{2} + y^{2}}e^{-ux} - \frac{y}{x^2 + y^2}
+\end{align*}
+So we get
+\begin{align*}
+  \int^u_0 e^{-zt} &= \int^u_0 e^{-xt} \cos(-yt) dt + i \int^u_0 e^{-xt} \sin(-yt) dt \\
+                   &= \frac{(-x + iy) \cos\left(u y\right) + (y + ix) \sin\left(u y\right)}{x^{2} + y^{2}}e^{-ux} + \frac{x - iy}{x^2 + y^2} \\
+                   &= \frac{-\Overline{z} \cos(uy) + i\Overline{z} \sin(uy)}{z\Overline{z}} e^{-ux} + \frac{\Overline{z}}{z\Overline{z}} \\
+                   &= \frac{-\cos(uy) + i\sin(uy)}{z} e^{-ux} + \frac{1}{z}
+\end{align*}
+Since \(-e^{-ux} \leq e^{-ux} \cos (uy) \leq e^{-ux}\) and \(\lim_{u \to \infty} e^{-ux} = 0\), \(\lim_{u \to \infty} e^{-ux} \cos (uy) = 0\) holds by the sandwich theorem.
+Similarly, \(-e^{-ux} \leq e^{-ux} \sin (uy) \leq e^{-ux}\) and \(\lim_{u \to \infty} e^{-ux} = 0\) implies \(\lim_{u \to \infty} e^{-ux} \sin (uy) = 0\) by sandwich theorem.
+Thus, we get the desired result.
+\begin{align*}
+  \int^\infty_0 e^{-zt} = \lim_{u \to \infty} \int^u_0 e^{-zt} = \lim_{u \to \infty} \left( \frac{-\cos(uy) + i\sin(uy)}{z} e^{-ux} + \frac{1}{z} \right) = \frac{1}{z}
+\end{align*}
+
+\section{Section 42 \#3}
+We can write
+\begin{align}\label{sec9_exp}
+  \int^{2\pi}_0 e^{im\theta} e^{-in\theta} d\theta = \int^{2\pi}_0 e^{i(m - n)\theta}
+\end{align}
+If \(m = n\), then (\ref{sec9_exp}) can be written as
+\[
+  \int^{2\pi}_0 1 d\theta = 2\pi
+\]
+If \(m \not = n\), then (\ref{sec9_exp}) can be written follows using the Euler's formula.
+\begin{align*}
+  &\int^{2\pi}_0 (\cos ((m - n)\theta) + i \sin ((m - n)\theta)) d\theta \\
+  &= \int^{2\pi}_0 \cos ((m - n)\theta) d\theta + i \int^{2\pi}_0 \sin ((m - n)\theta) d\theta \\
+  &= \left[ \frac{1}{m - n} \sin ((m - n)\theta) \right]^{2\pi}_0 - i \left[ \frac{1}{m - n} \cos ((m - n)\theta) \right]^{2\pi}_0
+  &= 0
+\end{align*}
+
+\end{document}
