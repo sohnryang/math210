@@ -1,0 +1,285 @@
+\documentclass{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{kotex}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+
+\newcommand\Overline[2][0.8pt]{%
+  \begin{tikzpicture}[baseline=(a.base)]
+    \node[inner xsep=0pt,inner ysep=1.5pt] (a) {$#2$};
+    \draw[line width= #1] (a.north west) -- (a.north east);
+  \end{tikzpicture}
+}
+\newtheorem{theorem}{Theorem}
+
+\setmainhangulfont{Noto Serif CJK KR}[
+  UprightFont=* Light, BoldFont=* Bold,
+  Script=Hangul, Language=Korean, AutoFakeSlant,
+]
+\setsanshangulfont{Noto Sans CJK KR}[
+  UprightFont=* DemiLight, BoldFont=* Medium,
+  Script=Hangul, Language=Korean
+]
+\setmathhangulfont{Noto Sans CJK KR}[
+  SizeFeatures={
+    {Size=-6,  Font=* Medium},
+    {Size=6-9, Font=*},
+    {Size=9-,  Font=* DemiLight},
+  },
+  Script=Hangul, Language=Korean
+]
+\title{MATH210: Homework 5 (due Apr. 4)}
+\author{손량(20220323)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+\section{Section 43 \#2}
+If \(-\pi / 2 < \theta < \pi / 2\), \(\cos \theta > 0\), so we can write
+\begin{align*}
+  e^{i\theta} &= \cos \theta + i\sin \theta = \cos \theta \left( 1 + i\tan \theta \right) \\
+              &= \frac{ 1 + i\tan \theta}{\sec \theta} = \frac{1 + i\tan \theta}{\sqrt{\sec^2 \theta}}  = \frac{1 + i\tan \theta}{\sqrt{1 + \tan^2 \theta}}
+\end{align*}
+Then \(z[\phi(y)]\) can be written as follows since \(-\pi / 2 < \phi(y) < \pi / 2\).
+\begin{align*}
+  z[\phi(y)] &= 2 \cdot \frac{1 + i\tan \phi(y)}{\sqrt{1 + \tan^2 \phi(y)}} = 2 \cdot \frac{1 + i \frac{y}{\sqrt{4 - y^2}}}{\sqrt{1 + \left( \frac{y}{\sqrt{4 - y^2}} \right)^2}} \\
+             &= 2 \cdot \frac{1 + i \frac{y}{\sqrt{4 - y^2}}}{\sqrt{\frac{4}{4 - y^2}}} = 2 \cdot \frac{\sqrt{4 - y^2} + iy}{2} = \sqrt{4 - y^2} + iy
+\end{align*}
+Thus, we can conclude that \(Z(y) = z[\phi(y)]\) for \(-2 < y < 2\).
+From equality~7 in section~40 and chain rule, the derivative of \(\phi(y)\) can be calculated as follows:
+\begin{align*}
+  \frac{d}{dy} \phi(y) &= \frac{d}{dy} \left( \frac{y}{\sqrt{4 - y^2}} \right) \frac{1}{1 + \left( \frac{y}{\sqrt{4 - y^2}} \right)^2} = \frac{\frac{\sqrt{4 - y^2} - y \frac{-2y}{2\sqrt{4 - y^2}}}{4 - y^2}}{\frac{4}{4 - y^2}} \\
+                       &= \frac{\sqrt{4 - y^2} - y \frac{-y}{\sqrt{4 - y^2}}}{4} = \frac{1}{\sqrt{4 - y^2}}
+\end{align*}
+from this, we know that \(\phi(y)\) has a positive derivative.
+
+\section{Section 43 \#6}
+\subsection{Solution for (a)}
+By definition, \(y(x) = 0\) if \(x = 0\).
+From equation~13 in section~38, \(\sin z = \sin x \cosh y + i\cos x \sinh y\) for \(z = x + iy\), and since \(\cosh y = (e^y + e^{-y}) / 2 > 0\) for all \(y\), if \(\sin z = 0\), then \(x = n\pi\) where \(n = 0, \pm 1, \pm 2, \dots\).
+Thus, the arc intersects the real axis only at points \(z = 1 / n\) and \(z = 0\).
+
+\subsection{Solution for (b)}
+For \(z'(x) = 1 + iy'(x)\), \(y'(x)\) is continuous in \(0 < x \leq 1\) since \(y\) \(x^3, 1 / x\) are continuously differentiable in \(0 < x \leq 1\), and \(\sin x\) is continuously differentiable in \(x \geq \pi\).
+We can write
+\begin{align*}
+  y'(0) = \lim_{h \to 0} \frac{y(h) - y(0)}{h} = \lim_{h \to 0} \frac{h^3 \sin(\pi / h)}{h} = \lim_{h \to 0} h^2 \sin(\pi / h)
+\end{align*}
+Also, from \(|h^2 \sin(\pi / h)| \leq h^2\) we can conclude that \(y'(0) = 0\) using sandwich theorem.
+For \(0 < x \leq 1\), we can write
+\begin{align*}
+  y'(x) = 3x^2 \sin \left( \frac{\pi}{x} \right) - \frac{\pi}{x^2} \cdot x^3 \cos \left( \frac{\pi}{x} \right) = 3x^2 \sin \left( \frac{\pi}{x} \right) - \pi x \cos \left( \frac{\pi}{x} \right)
+\end{align*}
+Using triangular inequality,
+\begin{align*}
+  |y'(x)| &= \left| 3x^2 \sin \left( \frac{\pi}{x} \right) - \pi x \cos \left( \frac{\pi}{x} \right) \right| \\
+          &\leq \left| 2x^2 \sin \left( \frac{\pi}{x} \right) \right| + \left| -\pi x \cos \left( \frac{\pi}{x} \right) \right| \leq 2x^2 + \pi |x|
+\end{align*}
+Then we can conclude that \(\lim_{x \to 0+} y'(x) = 0\) using sandwich theorem, and \(y'(x)\) is continuous in \([0, 1]\).
+We write the tangent vector \(\mathbf{T}\) as follows:
+\begin{align*}
+  \mathbf{T} = \frac{z'(x)}{|z'(x)|} = \frac{1 + iy'(x)}{\sqrt{1 + (y'(x))^2}} = \frac{1}{\sqrt{1 + (y'(x))^2}} + i \frac{y'(x)}{\sqrt{1 + (y'(x))^2}}
+\end{align*}
+Since \(y'(x)\) is continuous in \([0, 1]\) and \(\sqrt{1 + (y'(x))^2} > 0\), \(\mathbf{T}\) is continuous in \([0, 1]\) and the arc is smooth.
+
+\section{Section 46 \#9}
+\subsection{Solution for (a)}
+Let \(C_1\) be the top half of \(C\), and represent it as follows:
+\begin{align*}
+  z = e^{i\theta} \quad (0 \leq \theta \leq \pi)
+\end{align*}
+We can write
+\begin{align*}
+  f(z(\theta)) = \exp \left( -\frac{3}{4} \operatorname{Log} z(\theta) \right) = \exp \left( -\frac{3}{4} (\ln 1 + i\theta) \right) = \exp \left( -\frac{3i\theta}{4} \right)
+\end{align*}
+so
+\begin{align}\label{sec3a_fz_zprime}
+  f(z(\theta)) z'(\theta) = \exp \left( -\frac{3i\theta}{4} \right) ie^{i\theta} = ie^{i\theta / 4} = -\sin \frac{\theta}{4} + i\cos \frac{\theta}{4}
+\end{align}
+where \(0 \leq \theta < \pi\).
+Then, the left hand limits of real and imaginary components at \(\theta = \pi\) exist
+\begin{align*}
+  \lim_{\theta \to \pi-} \left( -\sin \frac{\theta}{4} \right) = -\frac{1}{\sqrt{2}}, \quad \lim_{\theta \to \pi-} \cos \frac{\theta}{4} = \frac{1}{\sqrt{2}}
+\end{align*}
+and \(f(z(\theta)) z'(\theta)\) is continuous on the closed interval \([0, \pi]\) when we define \(f(\pi)\) as \((-1 + i) / \sqrt{2}\).
+
+Let \(C_2\) be the bottom half of \(C\), and write it as follows:
+\begin{align*}
+  z = e^{i\theta} \quad (-\pi \leq \theta \leq 0)
+\end{align*}
+We can write (\ref{sec3a_fz_zprime}) in the same way as we did on \(C_1\), where \(-\pi < \theta \leq 0\).
+The right hand limits of real and imaginary components at \(\theta = -\pi\) exist
+\begin{align*}
+  \lim_{\theta \to -\pi+} \left( -\sin \frac{\theta}{4} \right) = \frac{1}{\sqrt{2}}, \quad \lim_{\theta \to -\pi+} \cos \frac{\theta}{4} = \frac{1}{\sqrt{2}}
+\end{align*}
+and \(f(z(\theta)) z'(\theta)\) is continuous on the closed interval \([-\pi, 0]\) when we define \(f(-\pi)\) as \((1 + i) / \sqrt{2}\).
+Then contour integral of \(f\) over \(C\) can be written as
+\begin{align*}
+  \int_C f(z) dz &= \int_{C_1} f(z) dz + \int_{C_2} f(z) dz = i \int^{\pi}_0 e^{i\theta / 4} d\theta + i \int^0_{-\pi} e^{i\theta / 4} d\theta \\
+                 &= i \int^{\pi}_{-\pi} e^{i\theta / 4} d\theta = i \left[ \frac{4}{i} e^{i\theta / 4} \right]^\pi_{-\pi} = 4(e^{i\pi / 4} - e^{-i\pi / 4}) = 4\sqrt{2}
+\end{align*}
+
+\subsection{Solution for (b)}
+Let \(C_1\) be the top half of \(C\), and represent it as follows:
+\begin{align*}
+  z = e^{i\theta} \quad (0 \leq \theta \leq \pi)
+\end{align*}
+We can write
+\begin{align*}
+  f(z(\theta)) = \exp \left( -\frac{3}{4} \log z(\theta) \right) = \exp \left( -\frac{3}{4} (\ln 1 + i\theta) \right) = \exp \left( -\frac{3i\theta}{4} \right)
+\end{align*}
+so
+\begin{align}\label{sec3b_fz_zprime}
+  f(z(\theta)) z'(\theta) = \exp \left( -\frac{3i\theta}{4} \right) ie^{i\theta} = ie^{i\theta / 4} = -\sin \frac{\theta}{4} + i\cos \frac{\theta}{4}
+\end{align}
+where \(0 < \theta \leq \pi\).
+Then, the right hand limits of real and imaginary components at \(\theta = 0\) exist
+\begin{align*}
+  \lim_{\theta \to 0+} \left( -\sin \frac{\theta}{4} \right) = 0, \quad \lim_{\theta \to 0+} \cos \frac{\theta}{4} = 1
+\end{align*}
+and \(f(z(\theta)) z'(\theta)\) is continuous on the closed interval \([0, \pi]\) when we define \(f(0)\) as \(i\).
+
+Let \(C_2\) be the bottom half of \(C\), and write it as follows:
+\begin{align*}
+  z = e^{i\theta} \quad (\pi \leq \theta \leq 2\pi)
+\end{align*}
+We can write (\ref{sec3b_fz_zprime}) in the same way as we did on \(C_1\), where \(\pi \leq \theta < 2\pi\).
+The left hand limits of real and imaginary components at \(\theta = 2\pi\) exist
+\begin{align*}
+  \lim_{\theta \to 2\pi-} \left( -\sin \frac{\theta}{4} \right) = -1, \quad \lim_{\theta \to 2\pi-} \cos \frac{\theta}{4} = 0
+\end{align*}
+and \(f(z(\theta)) z'(\theta)\) is continuous on the closed interval \([\pi, 2\pi]\) when we define \(f(2\pi)\) as \(-1\).
+Then contour integral of \(f\) over \(C\) can be written as
+\begin{align*}
+  \int_C f(z) dz &= \int_{C_1} f(z) dz + \int_{C_2} f(z) dz = i \int^{\pi}_0 e^{i\theta / 4} d\theta + i \int^{2\pi}_\pi e^{i\theta / 4} d\theta \\
+                 &= i \int^{2\pi}_0 e^{i\theta / 4} d\theta = i \left[ \frac{4}{i} e^{i\theta / 4} \right]^{2\pi}_0 = 4(e^{i\pi / 2} - e^0) = -4 + 4i
+\end{align*}
+
+\section{Section 46 \#13}
+If \(n = 0\),
+\begin{align*}
+  \int_{C_0} \frac{1}{z - z_0} dz = \int^\pi_{-\pi} \frac{1}{Re^{i\theta}} Rie^{i\theta} d\theta = 2\pi i
+\end{align*}
+If \(n = \pm 1, \pm 2, \dots\),
+\begin{align*}
+  \int_{C_0} (Re^{i\theta})^{n - 1} dz &= \int^\pi_{-\pi} (Re^{i\theta})^{n - 1} Rie^{i\theta} d\theta = iR^n \int^\pi_{-\pi} e^{in\theta} d\theta \\
+                                       &= \frac{R^n}{n} (e^{in\pi} - e^{-in\pi}) = \frac{2iR^n}{n} \sin n\pi = 0
+\end{align*}
+
+\section{Section 47 \#5}
+Let \(f(z) = \operatorname{Log} z / z^2\).
+From the theorem in section~47, we can write
+\begin{align*}
+  \left| \int_{C_R} \frac{\operatorname{Log} z}{z^2} dz \right| \leq ML
+\end{align*}
+where \(M\) is a nonnegative constant such that \(|f(z)| \leq M\) for all points \(z\) in \(C_R\) at which \(f(z)\) is defined, and \(L\) is the length of \(C_R\).
+Since \(z\) is a point in \(C_R\), \(|z| = R\) and we can represent \(C_R\) as \(z = Re^{i\theta}\) for \(-\pi \leq \theta \leq \pi\).
+Then, \(\operatorname{Log} z = \ln R + i\theta\) for \(-\pi < \theta < \pi\).
+Using triangular inequality,
+\begin{align}\label{sec5_ineq}
+  |f(z)| = \left| \frac{\operatorname{Log} z}{z^2} \right| = \frac{|\operatorname{Log} z|}{|z^2|} = \frac{|\ln R + i\theta|}{|z|^2} \leq \frac{|\ln R| + |i\theta|}{|z|^2} < \frac{|\ln R| + \pi}{R^2}
+\end{align}
+The length of contour \(C_R\) is \(2\pi R\), so we can write
+\begin{align*}
+  \left| \int_{C_R} \frac{\operatorname{Log} z}{z^2} dz \right| \leq 2\pi \left( \frac{\pi + \ln R}{R} \right)
+\end{align*}
+Since \(|f(z)|\) is strictly less than \((|\ln R| + \pi) / R^2\), the equality cannot hold and we get the desired result.
+\begin{align*}
+  \left| \int_{C_R} \frac{\operatorname{Log} z}{z^2} dz \right| < 2\pi \left( \frac{\pi + \ln R}{R} \right)
+\end{align*}
+Using l'Hospital's rule,
+\begin{align*}
+  \lim_{R \to \infty} 2\pi \left( \frac{\pi + \ln R}{R} \right) = \lim_{R \to \infty} \frac{2\pi}{R} = 0
+\end{align*}
+From sandwich theorem, we can conclude that the value of the contour integral tends to zero as \(R \to \infty\).
+
+\section{Section 47 \#6}
+We can write
+\begin{align*}
+  z^{-1/2} = \exp \left( -\frac{1}{2} \log z \right) = \exp \left( -\frac{1}{2} (\ln |z| + i\theta) \right) = \exp \left( -\frac{1}{2} (\ln \rho + i\theta) \right)
+\end{align*}
+where \(\alpha < \theta < \alpha + 2\pi\) for some real number \(\alpha\).
+Then
+\begin{align*}
+  |z^{-1/2}| = \left| \exp \left( -\frac{1}{2} (\ln \rho + i\theta) \right) \right| = \left| \exp \left( -\frac{1}{2}\ln \rho \right) \right| \left| e^{-i\theta / 2} \right| = \left| \exp \left( -\frac{1}{2} \ln \rho \right) \right| \leq \frac{1}{\sqrt{\rho}}
+\end{align*}
+Since \(f(z)\) is analytic in the disk \(|z| \leq 1\), it is bounded in the disk and there exists a nonnegative constant \(M_0\) such that \(|f(z)| \leq M_0\) for all \(z\) in the disk \(|z| \leq 1\).
+From this, we know that \(|z^{-1/2} f(z)| \leq M_0 / \sqrt{\rho}\).
+Using the theorem in section~47, we can write
+\begin{align*}
+  \left| \int_{C_\rho} z^{-1/2} f(z) dz \right| \leq 2\pi\rho \cdot \frac{M_0}{\sqrt{\rho}} = 2\pi M_0 \sqrt{\rho}
+\end{align*}
+We can take \(M = M_0\) and get the desired result.
+\(2\pi M \sqrt{\rho}\) tends to 0 as \(\rho \to 0\), so the value of the contour integral also tends to 0 by the sandwich theorem.
+
+\section{Section 49 \#5}
+Let \(f(z)\) be \(z^i\) where the branch \(-\pi / 2 < \arg z < 3\pi / 2\) is taken, and \(g(z)\) be \(z^i\) where the principal branch is taken, and
+\begin{align*}
+  F(z) = \frac{\exp((i + 1) \log z)}{i + 1} = \frac{\exp((i + 1) (\ln |z| + i\arg z))}{i + 1}
+\end{align*}
+where \(-\pi / 2 < \arg z < 3\pi / 2\).
+Then
+\begin{align*}
+  F'(z) = \exp((i + 1) \log z) \cdot 1 / z = \exp((i + 1) \log z) \cdot \exp(-\log z) = \exp(i \log z) = z^i
+\end{align*}
+So \(F(z)\) is an antiderivative of \(f(z)\).
+From
+\begin{align*}
+  f(z) &= z^i = \exp(i \log z) = \exp(i (\ln |z| + i\arg z)) \quad \left( |z| > 0, -\frac{\pi}{2} < \arg z < \frac{3\pi}{2} \right) \\
+  g(z) &= z^i = \exp(i \log z) = \exp(i (\ln |z| + i\operatorname{Arg} z)) \quad \left( |z| > 0, -\pi < \operatorname{Arg} z < \pi \right)
+\end{align*}
+In any contour from \(z = -1\) to \(z = 1\), \(f(z) = g(z)\), so we can write
+\begin{align*}
+  \int^1_{-1} g(z) dz &= \int^1_{-1} f(z) dz = \left[ F(z) \right]^1_{-1} = F(1) - F(-1) \\
+                      &= \frac{1 - e^{(i + 1) i\pi}}{i + 1} = \frac{1 + e^{-\pi}}{i + 1} = \frac{1 + e^{-\pi}}{2} (1 - i)
+\end{align*}
+
+\section{Section 53 \#1}
+\subsection{Solution for (b)}
+\(f(z) =ze^{-z}\) is a product of two entire functions, \(z\) and \(e^{-z}\), so it is anlaytic in the contour and its interior.
+Applying the Cauchy-Goursat theorem, we know that the integral is zero regardless of direction.
+
+\subsection{Solution for (f)}
+\(f(z) = \operatorname{Log} (z + 2)\) is analytic in the contour and its interior since the points in the unit disk with its center on \(z = 2\) does not intersect with branch cut.
+Applying the Cauchy-Goursat theorem, we know that the integral is zero regardless of direction.
+
+\section{Section 53 \#2}
+\subsection{Solution for (b)}
+Since \(\sin (z / 2) = 0\) holds if and only if \(z = 0, \pm 2\pi, \pm 4\pi, \dots\), \(\sin (z / 2) \not = 0\) in the closed region defined by \(C_1\) and \(C_2\), so \(f(z)\) is analytic in the region.
+By the corollary in section~53, we get the desired result.
+
+\subsection{Solution for (c)}
+Since \(1 - e^z = 0\) holds if and only if \(z = 2in\pi, (n = 0, 1, 2, \dots)\), \(1 - e^z \not = 0\) in the closed region defined by \(C_1\) and \(C_2\), so \(f(z)\) is analytic in the region.
+By the corollary in section~53, we get the desired result.
+
+\section{Section 53 \#7}
+Let \(f(z) = f(x + iy) = u(x, y) + iv(x, y) = \Overline{z}\) and \(z(t) = x(t) + iy(t) \quad (a \leq t \leq b)\).
+We can write
+\begin{align*}
+  \int_C f(z) dz &= \int^b_a (ux' - vy') dt + i \int^b_a (vx' + uy') dt \\
+                 &= \int_C u dx - v dy + i \int_C v dx + u dy \\
+                 &= \iint_R (-v_x - u_y) dA + i \iint_R (u_x - v_y) dA \\
+                 &= \iint_R 0 dA + i \iint [1 - (-1)] dA = 2i \iint dA
+\end{align*}
+where \(R\) is the region enclosed by \(C\).
+Let \(S\) be the area of the region, then
+\begin{align*}
+  S = \iint_R dA = \frac{1}{2i} \int_C \Overline{z} dz
+\end{align*}
+and we get the desired result.
+
+\end{document}
