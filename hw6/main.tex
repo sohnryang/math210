@@ -1,0 +1,189 @@
+\documentclass{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{kotex}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+
+\newcommand\Overline[2][0.8pt]{%
+  \begin{tikzpicture}[baseline=(a.base)]
+    \node[inner xsep=0pt,inner ysep=1.5pt] (a) {$#2$};
+    \draw[line width= #1] (a.north west) -- (a.north east);
+  \end{tikzpicture}
+}
+\newtheorem{theorem}{Theorem}
+
+\setmainhangulfont{Noto Serif CJK KR}[
+  UprightFont=* Light, BoldFont=* Bold,
+  Script=Hangul, Language=Korean, AutoFakeSlant,
+]
+\setsanshangulfont{Noto Sans CJK KR}[
+  UprightFont=* DemiLight, BoldFont=* Medium,
+  Script=Hangul, Language=Korean
+]
+\setmathhangulfont{Noto Sans CJK KR}[
+  SizeFeatures={
+    {Size=-6,  Font=* Medium},
+    {Size=6-9, Font=*},
+    {Size=9-,  Font=* DemiLight},
+  },
+  Script=Hangul, Language=Korean
+]
+\title{MATH210: Homework 6 (due Apr. 11)}
+\author{손량(20220323)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+\section{Section 53 \#3}
+Let \(z_0 = 2 + i, R < 1\), then \(C_0\) is interior to \(C\) and we can apply the corollary in section~53.
+\begin{align*}
+  \int_C (z - 2 - i)^{n - 1} dz = \int_{C_0} (z - z_0)^{n - 1} dz = \begin{cases}
+    0 & \text{when}\; n = \pm 1, \pm 2, \dots \\
+    2\pi i & \text{when}\; n = 0
+  \end{cases}
+\end{align*}
+
+\section{Section 53 \#5}
+Let \(C_a = C_1 - C_3\), then \(C_a\) is a simple closed contour since \(C_1\) and \(C_3\) are smooth arcs.
+Applying Cauchy-Goursat theorem, we get
+\begin{align*}
+  \int_{C_a} f(z) dz = \int_{C_1 - C_3} f(z) dz = 0
+\end{align*}
+so
+\begin{align*}
+  \int_{C_1} f(z) dz = \int_{C_3} f(z) dz
+\end{align*}
+Let \(C_b = C_2 + C_3\), then \(C_b\) is also a simple closed contour since \(C_2\) is a smooth arc.
+Again from Cauchy-Goursat theorem,
+\begin{align*}
+  \int_{C_b} f(z) dz = \int_{C_2 + C_3} f(z) dz = 0
+\end{align*}
+so
+\begin{align*}
+  \int_{C_2} f(z) dz = \int_{-C_3} f(z) dz = -\int_{C_3} f(z) dz
+\end{align*}
+then we can write
+\begin{align*}
+  \int_{C_1} f(z) dz = -\int_{C_2} f(z) dz
+\end{align*}
+and
+\begin{align*}
+  \int_C f(z) dz = \int_{C_1 + C_2} f(z) dz = \int_{C_1} f(z) dz + \int_{C_2} f(z) dz = 0
+\end{align*}
+
+\section{Section 57 \#4}
+If \(z\) is outside of \(C\), then \(s - z \not = 0\) and the integrand is analytic at all points interior to and on \(C\), so we can apply Cauchy-Goursat theorem.
+\begin{align*}
+  \int_C \frac{s^3 + 2s}{(s - z)^3} ds = 0
+\end{align*}
+Suppose that \(z\) is inside \(C\).
+Let \(f(z) = z^3 + 2z\), and using Cauchy integral formula we get
+\begin{align*}
+  f^{(2)}(z) = \frac{2!}{2\pi i} \int_C \frac{f(s) ds}{(s - z)^3}
+\end{align*}
+so
+\begin{align*}
+  6\pi iz = \int_C \frac{f(s) ds}{(s - z)^3} = \int_C \frac{s^3 + 2s}{(s - z)^3} ds
+\end{align*}
+and we get the desired result.
+
+\section{Section 57 \#6}
+Let \(d\) be the smallest distance from \(z\) to points \(s\) on \(C\) and assume that \(0 < |\Delta z| < d\).
+We can write
+\begin{align}
+  \nonumber |g(z + \Delta z) - g(z)| &= \left| \frac{1}{2\pi i} \int_C \left( \frac{1}{s - z - \Delta z} - \frac{1}{s - z} \right) f(s) ds \right| \\
+  \nonumber                          &= \left| \frac{1}{2\pi i} \int_C \frac{\Delta z}{(s - z - \Delta z)(s - z)} f(s) ds \right| \\
+  \nonumber                          &\leq \frac{1}{2\pi} \left| \int_C \frac{\Delta z}{(s - z - \Delta z)(s - z)} f(s) ds \right| \\
+  \label{sec4_rhs}                   &\leq \frac{1}{2\pi} \frac{|\Delta z|M}{(d - |\Delta z|)d} L
+\end{align}
+where \(L\) is the length of \(C\) and \(M\) is the maximum value of \(|f(s)|\) on \(C\).
+If we let \(\Delta z\) tend to zero, (\ref{sec4_rhs}) goes to zero and we can conclude that \(g(z)\) is continuous.
+Let \(\gamma\) be an arbitrary simple closed contour interior to \(C\), then
+\begin{align*}
+  \int_\gamma g(z) dz &= \int_\gamma \left( \frac{1}{2\pi i} \int_C \frac{f(s) ds}{s - z} \right) dz \\
+                      &= \frac{1}{2\pi i} \int_C \left( \int_\gamma \frac{f(s)}{s - z} dz \right) ds \\
+                      &= \frac{1}{2\pi i} \int_C 0 ds = 0
+\end{align*}
+since \(z\) is in the interior of \(C\), so \(z \not \in C\).
+Using theorem~2 in section~57, we can conclude that \(g(z)\) is analytic throughout the interior of \(C\).
+
+\section{Section 57 \#7}
+Let \(f(z) = \exp(az)\), then using the Cauchy integral formula,
+\begin{align*}
+  f(0) = \frac{1}{2\pi i} \int_C \frac{f(z) dz}{z} = \frac{1}{2\pi i} \int_C \frac{e^{az}}{z} dz = 1
+\end{align*}
+so we get
+\begin{align*}
+  \int_C \frac{e^{az}}{z} dz = 2\pi i
+\end{align*}
+
+Writing the contour integral explicitly,
+\begin{align*}
+  \int_C \frac{e^{az}}{z} dz &= \int^\pi_{-\pi} \frac{e^{a\exp(i\theta)}}{\exp(i\theta)} ie^{i\theta} d\theta = i \int^\pi_{-\pi} \exp(a(\cos \theta + i \sin \theta)) d\theta \\
+                             &= i \int^\pi_{-\pi} e^{a\cos \theta} \exp(i a \sin \theta) d\theta \\
+                             &= i \int^\pi_{-\pi} e^{a\cos \theta} (\cos(a \sin \theta) + i\sin (a \sin \theta)) d\theta \\
+                             &= i \int^\pi_{-\pi} e^{a\cos \theta} \cos (a \sin \theta) d\theta - \int^\pi_{-\pi} \sin (a \sin \theta) d\theta
+\end{align*}
+Since \(\sin(a \sin (-\theta)) = -\sin (a \sin \theta)\) and \(e^{a \cos (-\theta)} \cos (a \sin (-\theta)) = e^{a \cos \theta} \cos (a \sin \theta)\),
+\begin{align*}
+  &i \int^\pi_{-\pi} e^{a\cos \theta} \cos (a \sin \theta) d\theta - \int^\pi_{-\pi} \sin (a \sin \theta) d\theta \\
+  &= i \left( \int^\pi_0 e^{a\cos \theta} \cos (a \sin \theta) d\theta + \int^0_{-\pi} e^{a\cos \theta} \cos (a \sin \theta) d\theta \right) \\
+  &\quad - \left( \int^\pi_0 \sin (a \sin \theta) d\theta + \int^0_{-\pi} \sin (a \sin \theta) d\theta \right) \\
+  &= i \left( \int^\pi_0 e^{a\cos \theta} \cos (a \sin \theta) d\theta + \int^\pi_0 e^{a\cos \theta} \cos (a \sin \theta) d\theta \right) \\
+  &\quad - \left( \int^\pi_0 \sin (a \sin \theta) d\theta - \int^\pi_0 \sin (a \sin \theta) d\theta \right) \\
+  &= 2i \int^\pi_0 e^{a\cos \theta} \cos (a \sin \theta) d\theta = 2\pi i
+\end{align*}
+so
+\begin{align*}
+  \int^\pi_0 e^{a \cos \theta} \cos (a \sin \theta) d\theta = \pi
+\end{align*}
+
+\section{Section 57 \#10}
+Consider a positively oriented circle \(C_R\) with radius \(R\), centered at \(z_0\).
+Let \(M_R\) be the maximum of \(f(z)\) on \(C_R\), then \(M_R \leq A(|z_0| + R)\) since for all \(z\) on \(C_R\), \(A|z| \leq A(|z_0| + |z - z_0|) = A(|z_0| + R)\) by triangluar inequlity.
+We can write
+\begin{align*}
+  |f''(z_0)| \leq \frac{2! M_R}{R^2} = \frac{2A(|z_0| + R)}{R^2}
+\end{align*}
+and it implies \(|f''(z_0)| = 0\), since this inequlity should hold for all \(R\).
+Then, \(f''(z) = 0\) everywhere, so \(f'(z)\) is constant and \(|f(0)| \leq 0\), so \(f(0) = 0\).
+Thus, if we write \(f'(z) = a_1\)
+\begin{align*}
+  f(w) = \int^w_0 f'(z) dz = \left[ a_1 z \right]^w_0 = a_1 w
+\end{align*}
+
+\section{Section 59 \#4}
+We can write
+\begin{align*}
+  |f(z)|^2 &= |\sin z|^2 = |\sin (x + iy)|^2 = \sin^2 x + \sinh^2 y \\
+           &= \sin^2 x + \left( \frac{e^y - e^{-y}}{2} \right)^2 = \sin^2 x + \left( \frac{e^{2y} - 2 + e^{-2y}}{4} \right)
+\end{align*}
+We know that \(\sin^2 x \leq 1\) and \(\sin^2 (\pi / 2) = 1\).
+Also,
+\begin{align*}
+  \frac{d}{dy} \frac{e^{2y} - 2 + e^{-2y}}{4} = \frac{e^{2y} - e^{-2y}}{2} \geq 0
+\end{align*}
+for \(y \geq 0\), so \(\sinh^2 y\) is monotonically increasing in \(y \geq 0\), so \(\sinh^2 y\) has maximum on \(y = 1\) in the given region.
+Thus, \(|f(z)|^2\) is the largest on \((\pi / 2) + i\), so \(|f(z)|\) is also the largest there.
+
+\section{Section 59 \#7}
+Let \(g(z) = \exp(-if(z)) = \exp(-if(x + iy)) = \exp(v(x, y) - iu(x, y))\), then \(g(z)\) is continuous on \(R\) and analytic, nonconstant in the interior of \(R\).
+Then \(|g(z)| = |\exp(v(x, y) - iu(x, y))| = |\exp(v(x, y))| |\exp(-iu(x, y))| = |\exp(v(x, y))|\) has its maximum on the boundary of \(R\) by the corollary in section~59, and since \(e^x\) is monotonically increasing for real number \(x\), \(v(x, y)\) is maximum there.
+
+Considering \(h(z) = 1 / g(z)\), \(h(z)\) is also continuous on \(R\) and analytic, nonconstant in the interior of \(R\) since \(g(z) \not = 0\).
+Then \(|h(z)| = |\exp(-v(x, y))|\) has its maximum on the boundary of \(R\) by the corollary in section~59, and since \(e^x\) is monotonically increasing for real number \(x\), \(-v(x, y)\) is maximum there and \(v(x, y)\) is minimum there.
+\end{document}
