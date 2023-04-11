@@ -103,7 +103,11 @@ and we get the desired result.
 
 \section{Section 57 \#6}
 Let \(d\) be the smallest distance from \(z\) to points \(s\) on \(C\) and assume that \(0 < |\Delta z| < d\).
-We can write
+Since \(|s - z| \geq d\) and \(|\Delta z| < d\)
+\begin{align}\label{sec4_ineq}
+  |s - z - \Delta z| = |(s - z) - \Delta z| \geq ||s - z| - |\Delta z|| \geq d - |\Delta z| > 0
+\end{align}
+we can write
 \begin{align}
   \nonumber |g(z + \Delta z) - g(z)| &= \left| \frac{1}{2\pi i} \int_C \left( \frac{1}{s - z - \Delta z} - \frac{1}{s - z} \right) f(s) ds \right| \\
   \nonumber                          &= \left| \frac{1}{2\pi i} \int_C \frac{\Delta z}{(s - z - \Delta z)(s - z)} f(s) ds \right| \\
@@ -120,6 +124,33 @@ Let \(\gamma\) be an arbitrary simple closed contour interior to \(C\), then
 \end{align*}
 since \(z\) is in the interior of \(C\), so \(z \not \in C\).
 Using theorem~2 in section~57, we can conclude that \(g(z)\) is analytic throughout the interior of \(C\).
+
+We can also write
+\begin{align*}
+  \frac{g(z + \Delta z) - g(z)}{\Delta z} &= \frac{1}{2\pi i} \int_C \left( \frac{1}{s - z - \Delta z} - \frac{1}{s - z} \right) \frac{f(s)}{\Delta z} ds \\
+                                          &= \frac{1}{2\pi i} \int_C \frac{f(s) ds}{(s - z - \Delta z)(s - z)} \\
+\end{align*}
+From
+\begin{align*}
+  \frac{1}{(s - z - \Delta z)(s - z)} = \frac{1}{(s - z)^2} + \frac{\Delta z}{(s - z - \Delta z)(s - z)}
+\end{align*}
+using (\ref{sec4_ineq}) again,
+\begin{align}\label{sec4_limit}
+  \left| \int_C \frac{\Delta z f(s) ds}{(s - z - \Delta z)(s - z)^2} \right| \leq \frac{|\Delta z| M}{(d - |\Delta z|) d^2} L
+\end{align}
+where \(L\) is the length of \(C\) and \(M\) is the maximum value of \(|f(s)|\) on \(C\).
+So
+\begin{align*}
+  \frac{g(z + \Delta z) - g(z)}{\Delta z} - \frac{1}{2\pi i} \int_C \frac{f(s) ds}{(s - z)^2} = \frac{1}{2\pi i} \int_C \frac{\Delta z f(s) ds}{(s - z - \Delta z)(s - z)^2}
+\end{align*}
+From (\ref{sec4_limit}) goes to 0 as \(|\Delta z|\) tends to 0, so we can write
+\begin{align*}
+  \lim_{\Delta z \to 0} \left| \frac{g(z + \Delta z) - g(z)}{\Delta z} - \frac{1}{2\pi i} \int_C \frac{f(s) ds}{(s - z)^2} \right| = 0
+\end{align*}
+and we get the desired result.
+\begin{align*}
+  g'(z) = \frac{1}{2\pi i} \int_C \frac{f(s) ds}{(s - z)^2}
+\end{align*}
 
 \section{Section 57 \#7}
 Let \(f(z) = \exp(az)\), then using the Cauchy integral formula,
