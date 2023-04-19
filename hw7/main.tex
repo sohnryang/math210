@@ -1,0 +1,198 @@
+\documentclass{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{kotex}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+
+\newcommand\Overline[2][0.8pt]{%
+  \begin{tikzpicture}[baseline=(a.base)]
+    \node[inner xsep=0pt,inner ysep=1.5pt] (a) {$#2$};
+    \draw[line width= #1] (a.north west) -- (a.north east);
+  \end{tikzpicture}
+}
+\newtheorem{theorem}{Theorem}
+
+\setmainhangulfont{Noto Serif CJK KR}[
+  UprightFont=* Light, BoldFont=* Bold,
+  Script=Hangul, Language=Korean, AutoFakeSlant,
+]
+\setsanshangulfont{Noto Sans CJK KR}[
+  UprightFont=* DemiLight, BoldFont=* Medium,
+  Script=Hangul, Language=Korean
+]
+\setmathhangulfont{Noto Sans CJK KR}[
+  SizeFeatures={
+    {Size=-6,  Font=* Medium},
+    {Size=6-9, Font=*},
+    {Size=9-,  Font=* DemiLight},
+  },
+  Script=Hangul, Language=Korean
+]
+\title{MATH210: Homework 7 (due Apr. 25)}
+\author{손량(20220323)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+\section{Section 65 \#2}
+\subsection{Solution for (a)}
+We can write
+\begin{align*}
+  f(z)
+  = \sum^\infty_{n = 0} \frac{f^{(n)}(1)}{n!} (z - 1)^n
+  = \sum^\infty_{n = 0} \frac{e}{n!} (z - 1)^n
+  = e \sum^\infty_{n = 0} \frac{(z - 1)^n}{n!} \quad (|z - 1| < \infty)
+\end{align*}
+
+\subsection{Solution for (b)}
+Using Maclaurin series expansion of \(e^z\), we can write
+\begin{align*}
+  e^z
+  = e \cdot e^{z - 1}
+  = e \sum^\infty_{n = 0} \frac{(z - 1)^n}{n!} \quad (|z - 1| < \infty)
+\end{align*}
+
+\section{Section 65 \#3}
+Using the Maclaurin series expansion of \(1 / (1 - z)\), we can write
+\begin{align*}
+  f(z)
+  &= \frac{z}{z^4 + 4}
+  = \frac{z}{4} \cdot \frac{1}{1 + (z^4 / 4)}
+  = \frac{z}{4} \sum^\infty_{n = 0} \left( -\frac{z^4}{4} \right)^n \\
+  &= \frac{z}{4} \sum^\infty_{n = 0} \frac{(-1)^n}{2^{2n}} z^{4n}
+  = \sum^\infty_{n = 0} \frac{(-1)^n}{2^{2n + 2}} z^{4n + 1} \quad (|z| < \sqrt{2})
+\end{align*}
+
+\section{Section 65 \#4}
+Using the provided identity and Maclaurin series expansion of \(\sin z\),
+\begin{align*}
+  \cos z
+  &= -\sin \left( z - \frac{\pi}{2} \right) \\
+  &= -\sum^\infty_{n = 0} (-1)^n \frac{(z - \pi / 2)^{2n + 1}}{(2n + 1)!} \quad (|z - \pi / 2| < \infty) \\
+  &= \sum^\infty_{n = 0} \frac{(-1)^{n + 1}}{(2n + 1)!} \left( z - \frac{\pi}{2} \right)^{2n + 1} \quad (|z - \pi / 2| < \infty)
+\end{align*}
+
+\section{Section 65 \#9}
+Using the Maclaurin series expansion of \(\sin z\),
+\begin{align}
+  \nonumber f(z)
+  \nonumber &= \sin (z^2)
+  \nonumber = \sum^\infty_{n = 0} (-1)^{n} \frac{z^{2(2n + 1)}}{(2n + 1)!} \\
+  \label{sec4_explicit} &= \sum^\infty_{n = 0} (-1)^n \frac{z^{4n + 2}}{(2n + 1)!} \quad (|z^2| < \infty) \\
+  \label{sec4_def} &= \sum^\infty_{n = 0} \frac{f^{(n)}(0)}{n!} z^n \quad (|z| < \infty)
+\end{align}
+From equality of (\ref{sec4_explicit}) and (\ref{sec4_def}), we know that
+\begin{align*}
+  f^{(n)}(0) = \begin{cases}
+    (-1)^k \frac{(4k + 2)!}{(2n + 1)!} & (n = 4k + 2) \\
+    0 & (n \not = 4k + 2)
+  \end{cases}
+\end{align*}
+where \(k\) is an integer.
+Then, there is no integer \(n, k\) such that \(4n = 4k + 2\) or \(2n + 1 = 4k + 2\), so we get the desired result.
+\begin{align*}
+  f^{(4n)}(0) = 0, \quad f^{(2n + 1)}(0) = 0
+\end{align*}
+
+\section{Section 72 \#1}
+Differentiating \(1 / (1 - z)\), we get \(1 / (1 - z)^2\) and term by term differentiation of the given series gives
+\begin{align}\label{sec5_diffed}
+  \frac{d}{dz} \sum^\infty_{n = 0} z^n = \sum^\infty_{n = 0} (n + 1)z^n \quad (|z| < 1)
+\end{align}
+and the radius of convergence does not change by theorem~2 in section~71.
+Differentiating \(1 / (1 - z)^2\) again, we get \(2 / (1 - z)^3\) and term by term differentiation of (\ref{sec5_diffed}) gives
+\begin{align*}
+  \frac{d}{dz} \sum^\infty_{n = 0} (n + 1)(n + 2)z^n \quad (|z| < 1)
+\end{align*}
+again, by theorem~2 in section~71 the radius of convergence does not change.
+
+\section{Section 72 \#3}
+Using the Maclaurin series expansion of \(1 / (1 - z)\),
+\begin{align}
+  \nonumber \frac{1}{z}
+  \nonumber &= \frac{1}{2 + (z - 2)}
+  \nonumber = \frac{1}{2} \cdot \frac{1}{1 + (z - 2) / 2} \\
+  \label{sec6_series} &= \frac{1}{2} \sum^\infty_{n = 0} \left( -\frac{z - 2}{2} \right)^n \quad \left( \left| -\frac{z - 2}{2} \right| < 1 \right)
+\end{align}
+Differentiating \(1 / z\) yields \(-1 / z^2\), and by differentiating (\ref{sec6_series}), we get
+\begin{align*}
+  -\frac{1}{z^2}
+  = \frac{1}{2} \frac{d}{dz} \sum^\infty_{n = 0} \left( -\frac{z - 2}{2} \right)^n
+  &= \frac{1}{2} \frac{d}{dz} \sum^\infty_{n = 0} \left[ \left( -\frac{1}{2} \right)^n (z - 2)^n \right] \\
+  &= \frac{1}{2} \sum^\infty_{n = 1} \left[ n \left( -\frac{1}{2} \right)^n (z - 2)^{n - 1} \right] \\
+  &= \frac{1}{2} \sum^\infty_{n = 0} \left[ (n + 1) \left( -\frac{1}{2} \right)^{n + 1} (z - 2)^n \right] \\
+  &= -\frac{1}{4} \sum^\infty_{n = 0} (-1)^n (n + 1) \left( \frac{z - 2}{2} \right)^n \quad \left( \left| -\frac{z - 2}{2} \right| < 1 \right)
+\end{align*}
+The radius of convergence does not change after differentiation by theorem~2 in section~71.
+Since \(|-(z - 2) / 2| < 1\) is equivalent to \(|z - 2| < 2\), we get the desired result.
+\begin{align*}
+  \frac{1}{z^2} = \frac{1}{4} \sum^\infty_{n = 0} (-1)^n (n + 1) \left( \frac{z - 2}{2} \right)^n \quad (|z - 2| < 2)
+\end{align*}
+
+\section{Section 72 \#6}
+We know that \(\operatorname{Log} z\) is an antiderivative of \(1 / z\) on the domain \(D := \{z \in \mathbb{C};\; |z - 1| < 1\}\) since
+\begin{align*}
+  \frac{d}{dz} \operatorname{Log} z = \frac{1}{z} \quad (|z| > 0, -\pi < \operatorname{Arg} z < \pi)
+\end{align*}
+holds for all \(z\) such that \(|z - 1| < 1\).
+By the theorem in section~48, for all contours lying in \(D\) extending from 1 to \(z\), we can write
+\begin{align*}
+  \int_C \frac{1}{w} dw
+  = \int^z_1 \frac{1}{w} dw
+  = \operatorname{Log} z - \operatorname{Log} 1
+  = \operatorname{Log} z
+\end{align*}
+Also, using theorem~1 in section~71, we can write
+\begin{align}
+  \label{sec7_series} \int_C \sum^\infty_{n = 0} (-1)^n (w - 1)^n dw
+  = \sum^\infty_{n = 0} (-1)^n \int_C (w - 1)^n dw \quad (|z - 1| < 1)
+\end{align}
+for all contour \(C\) interior to the circle \(|z - 1| < 1\).
+Since \((w - 1)^n\) has its antiderivative \((n + 1)^{-1} (w - 1)^{n + 1}\) for all integer \(n \geq 0\), for all contour \(C\) in the circle \(|z - 1| < 1\) extending from 1 to \(z\), we can write (\ref{sec7_series}) as
+\begin{align*}
+  \sum^\infty_{n = 0} (-1)^n \int_C (w - 1)^n dw
+  &= \sum^\infty_{n = 0} (-1)^n \frac{(z - 1)^{n + 1}}{n + 1} \\
+  &= \sum^\infty_{n = 1} \frac{(-1)^{n + 1}}{n} (z - 1)^n \quad (|z - 1| < 1)
+\end{align*}
+and get the desired result.
+\begin{align}\label{sec7_result}
+  \operatorname{Log} z = \sum^\infty_{n = 1} \frac{(-1)^{n + 1}}{n} (z - 1)^n \quad (|z - 1| < 1)
+\end{align}
+
+\section{Section 72 \#7}
+Using (\ref{sec7_result}), we can write
+\begin{align*}
+  \frac{\operatorname{Log} z}{z - 1}
+  = \sum^\infty_{n = 1} \frac{(-1)^{n + 1}}{n} (z - 1)^{n - 1} = \sum^\infty_{n = 0} \frac{(-1)^n}{n + 1} (z - 1)^n \quad (0 < |z - 1| < 1)
+\end{align*}
+Since the series on the right hand side evaluates to 1 where \(z = 1\), we can write
+\begin{align}\label{sec8_series}
+  f(z)
+  = \sum^\infty_{n = 1} \frac{(-1)^{n + 1}}{n} (z - 1)^{n - 1} = \sum^\infty_{n = 0} \frac{(-1)^n}{n + 1} (z - 1)^n \quad (|z - 1| < 1)
+\end{align}
+Using ratio test,
+\begin{align*}
+  \lim_{n \to \infty} \left| \frac{(-1)^{n + 1}}{n + 2} (z - 1)^{n + 1} \right| \left| \frac{(-1)^n}{n + 1} (z - 1)^n \right|^{-1}
+  &= \lim_{n \to \infty} \left| \frac{n + 1}{n + 2} (z - 1) \right| \\
+  &= |z - 1| < 1
+\end{align*}
+so (\ref{sec8_series}) converges absolutely if \(|z - 1| < 1\).
+By theorem~1 in section~72, (\ref{sec8_series}) is the Taylor series expansion for \(f\) in powers of \(z - 1\), so \(f\) is analytic throughout a disk \(|z - 1| < 1\).
+Also, \(\operatorname{Log} z\) is analytic throughout \(\{z \in \mathbb{C};\; |z| > 0\; \text{and}\; -\pi < \operatorname{Arg} z < \pi\}\) so \(f\) is also analytic throughout \(D := \{z \in \mathbb{C};\; |z| > 0\; \text{and}\; z \not = 1\; \text{and}\; -\pi < \operatorname{Arg} z < \pi\}\).
+Since \(f\) is analytic throughout both \(D\) and disk \(|z - 1| < 1\), \(f\) is analytic throughout the domain \(0 < |z| < \infty, -\pi < \operatorname{Arg} z < \pi\).
+
+\end{document}
