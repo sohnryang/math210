@@ -1,0 +1,312 @@
+\documentclass{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{kotex}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+
+\newcommand\Overline[2][0.8pt]{%
+  \begin{tikzpicture}[baseline=(a.base)]
+    \node[inner xsep=0pt,inner ysep=1.5pt] (a) {$#2$};
+    \draw[line width= #1] (a.north west) -- (a.north east);
+  \end{tikzpicture}
+}
+\newtheorem{theorem}{Theorem}
+
+\setmainhangulfont{Noto Serif CJK KR}[
+  UprightFont=* Light, BoldFont=* Bold,
+  Script=Hangul, Language=Korean, AutoFakeSlant,
+]
+\setsanshangulfont{Noto Sans CJK KR}[
+  UprightFont=* DemiLight, BoldFont=* Medium,
+  Script=Hangul, Language=Korean
+]
+\setmathhangulfont{Noto Sans CJK KR}[
+  SizeFeatures={
+    {Size=-6,  Font=* Medium},
+    {Size=6-9, Font=*},
+    {Size=9-,  Font=* DemiLight},
+  },
+  Script=Hangul, Language=Korean
+]
+\title{MATH210: Homework 8 (due Mon. 2)}
+\author{손량(20220323)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+\newcommand{\imag}{\operatorname{Im}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\Log}{\operatorname{Log}}
+\newcommand{\Arg}{\operatorname{Arg}}
+
+\begin{document}
+\maketitle
+
+\section{Section 68 \#6}
+By Maclaurin series expansion of \(1 / (1 - z)\), we can write
+\begin{align}\label{sec1_series}
+  \frac{1}{1 - \frac{z - 1}{2}}
+  = \sum^\infty_{n = 0} \left( \frac{z - 1}{2} \right)^n
+  = \sum^\infty_{n = 0} \frac{(z - 1)^n}{2^n} \quad (|z - 1| < 2)
+\end{align}
+By observing
+\begin{align*}
+  \frac{z}{(z - 1)(z - 3)} + \frac{1}{2(z - 1)} = \frac{z + \frac{z - 3}{2}}{(z - 1)(z - 3)} = \frac{3}{2(z - 3)} = -\frac{3}{4} \cdot \frac{1}{1 - \frac{z - 1}{2}}
+\end{align*}
+where \(0 < |z - 1| < 2\) and using (\ref{sec1_series}), we obtain
+\begin{align*}
+  \frac{z}{(z - 1)(z - 3)} + \frac{1}{2(z - 1)}
+  = -\frac{3}{4} \sum^\infty_{n = 0} \frac{(z - 1)^n}{2^n}
+  = -3 \sum^\infty_{n = 0} \frac{(z - 1)^n}{2^{n + 2}} \quad (0 < |z - 1| < 2)
+\end{align*}
+and we get the desired result.
+\begin{align*}
+  \frac{z}{(z - 1)(z - 3)}
+  = -3 \sum^\infty_{n = 0} \frac{(z - 1)^n}{2^{n + 2}} - \frac{1}{2(z - 1)} \quad (0 < |z - 1| < 2)
+\end{align*}
+
+\section{Section 68 \#7}
+\subsection{Solution for (a)}
+By Maclaurin series expansion of \(1 / (1 - z)\) and since \(|a| < |z| < \infty\) implies \(|a / z| < 1\), we get
+\begin{align*}
+  \frac{a}{z - a}
+  = \frac{a}{z} \cdot \frac{1}{1 - a / z}
+  = \frac{a}{z} \sum^\infty_{n = 0} \left( \frac{a}{z} \right)^n
+  = \sum^\infty_{n = 0} \left( \frac{a}{z} \right)^{n + 1}
+  = \sum^\infty_{n = 1} \left( \frac{a}{z} \right)^n \quad (|a| < |z| < \infty)
+\end{align*}
+
+\subsection{Solution for (b)}
+If we write \(z = e^{i\theta}\), \(|z| = 1\) so from \(-1 < a < 1\), \(|a| < |z| < \infty\) holds.
+Then we can write
+\begin{align*}
+  \frac{a}{z - a}
+  = \frac{a}{e^{i\theta} - a}
+  = \sum^\infty_{n = 1} \left( \frac{a}{e^{i\theta}} \right)^n
+  = \sum^\infty_{n = 1} a^n e^{-in\theta} \quad (-1 < a < 1)
+\end{align*}
+We can also write
+\begin{align*}
+  \frac{a}{z - a}
+  &= \frac{a(\Overline{z} - a)}{(z - a)(\Overline{z} - a)}
+  = \frac{a}{|z|^2 -a(z + \Overline{z}) + a^2}(\Overline{z} - a) \\
+  &= \frac{a(\Overline{z} - a)}{|z|^2 - 2a \real z + a^2}
+  = \frac{a(e^{-i\theta} - a)}{1 - 2a \cos\theta + a^2}
+  = \frac{a(\cos \theta - i\sin \theta) - a^2}{1 - 2a \cos\theta + a^2} \\
+  &= \frac{a \cos\theta - a^2}{1 - 2a \cos\theta + a^2} - \frac{ia \sin\theta}{1 - 2a \cos\theta + a^2} \quad (-1 < a < 1)
+\end{align*}
+and
+\begin{align*}
+  \sum^\infty_{n = 1} a^n e^{-in\theta}
+  &= \sum^\infty_{n = 1} a^n (\cos (-n\theta) + i\sin (-n\theta)) \\
+  &= \sum^\infty_{n = 1} a^n (\cos (n\theta) - i\sin (n\theta)) \\
+  &= \sum^\infty_{n = 1} a^n \cos (n\theta) - i\sum^\infty_{n = 1} a^n \sin (n\theta) \quad (-1 < a < 1)
+\end{align*}
+so we get
+\begin{align*}
+  \real \sum^\infty_{n = 1} a^n e^{-in\theta}
+  &= \sum^\infty_{n = 1} a^n \cos (n\theta)
+  = \real \frac{a}{z - a}
+  = \frac{a \cos\theta - a^2}{1 - 2a \cos\theta + a^2} \quad (-1 < a < 1) \\
+  \imag \sum^\infty_{n = 1} a^n e^{-in\theta}
+  &= -\sum^\infty_{n = 1} a^n \sin (n\theta)
+  = \imag \frac{a}{z - a}
+  = -\frac{a \sin\theta}{1 - 2a \cos\theta + a^2} \quad (-1 < a < 1)
+\end{align*}
+and the desired result.
+\begin{align*}
+  \sum^\infty_{n = 1} a^n \cos (n\theta)
+  &= \frac{a \cos\theta - a^2}{1 - 2a \cos\theta + a^2} \\
+  \sum^\infty_{n = 1} a^n \sin (n\theta)
+  &= \frac{a \sin\theta}{1 - 2a \cos\theta + a^2}
+\end{align*}
+where \(-1 < a < 1\).
+
+\section{Section 72 \#3}
+Using the Maclaurin series expansion of \(1 / (1 - z)\),
+\begin{align}
+  \nonumber \frac{1}{z}
+  \nonumber &= \frac{1}{2 + (z - 2)}
+  \nonumber = \frac{1}{2} \cdot \frac{1}{1 + (z - 2) / 2} \\
+  \label{sec3_series} &= \frac{1}{2} \sum^\infty_{n = 0} \left( -\frac{z - 2}{2} \right)^n \quad \left( \left| -\frac{z - 2}{2} \right| < 1 \right)
+\end{align}
+Differentiating \(1 / z\) yields \(-1 / z^2\), and by differentiating (\ref{sec3_series}), we get
+\begin{align*}
+  -\frac{1}{z^2}
+  = \frac{1}{2} \frac{d}{dz} \sum^\infty_{n = 0} \left( -\frac{z - 2}{2} \right)^n
+  &= \frac{1}{2} \frac{d}{dz} \sum^\infty_{n = 0} \left[ \left( -\frac{1}{2} \right)^n (z - 2)^n \right] \\
+  &= \frac{1}{2} \sum^\infty_{n = 1} \left[ n \left( -\frac{1}{2} \right)^n (z - 2)^{n - 1} \right] \\
+  &= \frac{1}{2} \sum^\infty_{n = 0} \left[ (n + 1) \left( -\frac{1}{2} \right)^{n + 1} (z - 2)^n \right] \\
+  &= -\frac{1}{4} \sum^\infty_{n = 0} (-1)^n (n + 1) \left( \frac{z - 2}{2} \right)^n \quad \left( \left| -\frac{z - 2}{2} \right| < 1 \right)
+\end{align*}
+The radius of convergence does not change after differentiation by theorem~2 in section~71.
+Since \(|-(z - 2) / 2| < 1\) is equivalent to \(|z - 2| < 2\), we get the desired result.
+\begin{align*}
+  \frac{1}{z^2} = \frac{1}{4} \sum^\infty_{n = 0} (-1)^n (n + 1) \left( \frac{z - 2}{2} \right)^n \quad (|z - 2| < 2)
+\end{align*}
+
+\section{Section 72 \#6}
+We know that \(\Log z\) is an antiderivative, \(1 / z\) on the domain \(D := \{z \in \mathbb{C};\; |z - 1| < 1\}\) since
+\begin{align*}
+  \frac{d}{dz} \Log z = \frac{1}{z} \quad (|z| > 0, -\pi < \Arg z < \pi)
+\end{align*}
+holds for all \(z\) such that \(|z - 1| < 1\).
+By the theorem in section~48, for all contours lying in \(D\) extending from 1 to \(z\), we can write
+\begin{align*}
+  \int_C \frac{1}{w} dw
+  = \int^z_1 \frac{1}{w} dw
+  = \Log z - \Log 1
+  = \Log z
+\end{align*}
+Also, using theorem~1 in section~71, we can write
+\begin{align}
+  \label{sec4_series} \int_C \sum^\infty_{n = 0} (-1)^n (w - 1)^n dw
+  = \sum^\infty_{n = 0} (-1)^n \int_C (w - 1)^n dw \quad (|z - 1| < 1)
+\end{align}
+for all contour \(C\) interior to the circle \(|z - 1| < 1\).
+Since \((w - 1)^n\) has its antiderivative \((n + 1)^{-1} (w - 1)^{n + 1}\) for all integer \(n \geq 0\), for all contour \(C\) in the circle \(|z - 1| < 1\) extending from 1 to \(z\), we can write (\ref{sec4_series}) as
+\begin{align*}
+  \sum^\infty_{n = 0} (-1)^n \int_C (w - 1)^n dw
+  &= \sum^\infty_{n = 0} (-1)^n \frac{(z - 1)^{n + 1}}{n + 1} \\
+  &= \sum^\infty_{n = 1} \frac{(-1)^{n + 1}}{n} (z - 1)^n \quad (|z - 1| < 1)
+\end{align*}
+and get the desired result.
+\begin{align}
+  \Log z = \sum^\infty_{n = 1} \frac{(-1)^{n + 1}}{n} (z - 1)^n \quad (|z - 1| < 1)
+\end{align}
+
+\section{Section 72 \#8}
+By definition, \(f\) is differentiable in some neighborhood of \(z_0\), which means that there exists some \(r > 0\) such that \(f\) is differentiable for all \(z\) such that \(|z - z_0| < r\).
+Then we can write
+\begin{align}\label{sec5_series}
+  f(z)
+  = \sum^\infty_{n = 0} \frac{f^{(n)}(z_0)}{n!}(z - z_0)^n \quad (|z - z_0| < r)
+\end{align}
+Since \(f(z_0) = f'(z_0) = \dots = f^{(m)}(z_0) = 0\), (\ref{sec5_series}) can be written as
+\begin{align*}
+  f(z)
+  = \sum^\infty_{n = m + 1} \frac{f^{(n)}(z_0)}{n!}(z - z_0)^n \quad (|z - z_0| < r)
+\end{align*}
+so
+\begin{align*}
+  \frac{f(z)}{(z - z_0)^{m + 1}}
+  &= \frac{1}{(z - z_0)^{m + 1}} \sum^\infty_{n = m + 1} \frac{f^{(n)}(z_0)}{n!}(z - z_0)^n \\
+  &= \sum^\infty_{n = m + 1} \frac{f^{(n)}(z_0)}{n!}\frac{(z - z_0)^n}{(z - z_0)^{m + 1}} \\
+  &= \sum^\infty_{n = m + 1} \frac{f^{(n)}(z_0)}{n!}(z - z_0)^{n - m - 1} \quad (0 < |z - z_0| < r)
+\end{align*}
+Then, we can write \(g(z)\) as a series.
+\begin{align}\label{sec5_g_series}
+  g(z)
+  = \sum^\infty_{n = m + 1} \frac{f^{(n)}(z_0)}{n!} (z - z_0)^{n - m - 1} \quad (|z - z_0| < r)
+\end{align}
+By the corollary in section~71, we can conclude that \(g(z)\) is analytic at \(z\) such that \(|z - z_0| < r\), so \(g(z)\) is analytic at \(z_0\).
+
+\section{Section 73 \#6}
+\subsection{Proof for (a)}
+Let \(f\) be a function where
+\begin{align*}
+  f(z) = \begin{cases}
+    \frac{\sinh z}{z} & (z \not = 0) \\
+    1 & (z = 0)
+  \end{cases}
+\end{align*}
+Then we can write
+\begin{align}\label{sec6_1_series}
+  f(z) = 1 + \frac{z^2}{3!} + \frac{z^4}{5!} + \dots = \sum^\infty_{n = 0} a_n z^n \quad (0 < |z| < \infty)
+\end{align}
+and
+\begin{align*}
+  a_n = \begin{cases}
+    \frac{1}{(n + 1)!} & (n = 2k) \\
+    0 & (n = 2k + 1)
+  \end{cases}
+\end{align*}
+where \(k\) is nonnegative integer.
+The series in the right hand side of (\ref{sec6_1_series}) converges if \(z = 0\), so we can write
+\begin{align*}
+  f(z) = 1 + \frac{z^2}{3!} + \frac{z^4}{5!} + \dots = \sum^\infty_{n = 0} a_n z^n \quad (|z| < \infty)
+\end{align*}
+By the corollary in section~71, \(f\) is analytic everywhere.
+From \(f(0) \not = 0\) and \(\sinh z / z \not = 0\) for \(0 < |z| < \pi\), we can conclude that \(f(z) \not = 0\) for all \(z\) such that \(|z| < \pi\).
+So can write
+\begin{align*}
+  \frac{1}{f(z)} = \frac{1}{1 + z^2 / 3! + z^4 / 5! + \dots} = d_0 + d_1 z + d_2 z^2 + d_3 z^3 + d_4 z^4 + \dots \quad (|z| < \pi)
+\end{align*}
+and calculate the Cauchy product as follows:
+\begin{align*}
+  \left( \sum^\infty_{n = 0} a_n z^n \right) \left( \sum^\infty_{n = 0} d_n z^n \right)
+  = \sum^\infty_{n = 0} b_n z^n \quad (|z| < \pi)
+\end{align*}
+where
+\begin{align*}
+  b_n = \sum^n_{k = 0} a_k d_{n - k} \quad (|z| < \pi)
+\end{align*}
+so we can write
+\begin{align}
+  \nonumber             \left( \sum^\infty_{n = 0} a_n z^n \right) \left( \sum^\infty_{n = 0} d_n z^n \right) - 1
+  \nonumber             &= \sum^\infty_{n = 0} \left( \sum^n_{k = 0} a_k d_{n - k} \right) z^n - 1 \\
+  \nonumber             &= (a_0 d_0 - 1) + (a_0 d_1 + a_1 d_0) z \\
+  \nonumber             &+ (a_0 d_2 + a_1 d_1 + a_2 d_0) z^2 \\
+  \nonumber             &+ (a_0 d_3 + a_1 d_2 + a_2 d_1 + a_3 d_0) z^3 \\
+  \nonumber             &+ (a_0 d_4 + a_1 d_3 + a_2 d_2 + a_3 d_1 + a_4 d_0) z^4 + \dots \\
+  \nonumber             &= (d_0 - 1) + d_1 z + \left( d_2 + \frac{1}{3!}d_0 \right) z^2 + \left( d_3 + \frac{1}{3!}d_1 \right) z^3 \\
+  \label{sec6_1_result} &+ \left( d_4 + \frac{1}{3!}d_2 + \frac{1}{5!}d_0 \right) z^4 + \dots \\
+  \nonumber             &= 0 \quad (|z| < \pi)
+\end{align}
+
+\subsection{Solution for (b)}
+Solving (\ref{sec6_1_result}), we obtain
+\begin{align*}
+  d_0 = 1, d_1 = 0, d_2 = -\frac{1}{3!} = -\frac{1}{6}, d_3 = 0, d_4 = -\frac{1}{3!}d_2 - \frac{1}{5!}d_0 = \frac{7}{360}
+\end{align*}
+
+\section{Section 73 \#8}
+\subsection{Solution for (a)}
+Let \(g(z) = f(f(z))\).
+We can write
+\begin{align*}
+  g(0) &= f(f(0)) = 0 \\
+  \frac{d}{dz}\Bigr|_{z = 0} g(z) &= f'(0) f'(f(0)) = 1 \\
+  \frac{d^2}{dz^2}\Bigr|_{z = 0} g(z) &= f''(0) f'(f(0)) + (f'(0))^2 f''(f(0)) = 4a_2 \\
+  \frac{d^3}{dz^3}\Bigr|_{z = 0} g(z) &= f^{(3)}(0) f'(f(0)) + 3f'(0) f''(0) f''(f(0)) \\
+                                      &+ (f'(0))^2 f'(0) f^{(3)}(f(0)) = 12a_2^2 + 12a_3
+\end{align*}
+and
+\begin{align}
+  \nonumber g(z)
+  \nonumber &= \sum^\infty_{n = 0} \frac{g^{(n)}(0)}{n!} z^n
+  \nonumber = g(0) + g'(0) z + \frac{g''(0)}{2!} z^2 + \frac{g^{(3)}(0)}{3!} z^3 + \dots \\
+  \label{sec7_1_result} &= z + 2a_2 z^2 + 2(a_2^2 + a_3) z^3 + \dots \quad (|z| < \infty)
+\end{align}
+
+\subsection{Solution for (b)}
+We write
+\begin{align*}
+  f(f(z)) &= f(z) + a_2 (f(z))^2 + a_3 (f(z))^3 + \dots \\
+          &= (z + a_2 z^2 + a_3 z^3 + \dots) + a_2 (z + a_2 z^2 + a_3 z^3 + \dots)^2 \\
+          &+ a_3 (z + a_2 z^2 + a_3 z^3 + \dots)^3 + \dots \\
+          &= (z + a_2 z^2 + a_3 z^3 + \dots) + (a_2 z^2 + 2a_2^2 z^3 + \dots) + (a_3 z^3 + \dots) + \dots \\
+          &= z + 2a_2 z^2 + 2(a_2^2 + a_3) z^3 + \dots \quad (|z| < \infty)
+\end{align*}
+
+\subsection{Solution for (c)}
+From Maclaurin series expansion of \(\sin z\), we can write
+\begin{align*}
+  \sin z = \sum^\infty_{n = 0} (-1)^n \frac{z^{2n + 1}}{(2n + 1)!} = z - \frac{z^3}{3!} + \frac{z^5}{5!} - \dots
+\end{align*}
+Using (\ref{sec7_1_result}),
+\begin{align*}
+  \sin (\sin z) = z + 2 \cdot 0 \cdot z^2 + 2 \left( 0^2 - \frac{1}{3!} \right) z^3 + \dots = z - \frac{1}{3} z^3 + \dots \quad (|z| < \infty)
+\end{align*}
+
+\end{document}
