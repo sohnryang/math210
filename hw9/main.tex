@@ -1,0 +1,323 @@
+\documentclass{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{kotex}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+
+\newcommand\Overline[2][0.8pt]{%
+  \begin{tikzpicture}[baseline=(a.base)]
+    \node[inner xsep=0pt,inner ysep=1.5pt] (a) {$#2$};
+    \draw[line width= #1] (a.north west) -- (a.north east);
+  \end{tikzpicture}
+}
+\newtheorem{theorem}{Theorem}
+
+\setmainhangulfont{Noto Serif CJK KR}[
+  UprightFont=* Light, BoldFont=* Bold,
+  Script=Hangul, Language=Korean, AutoFakeSlant,
+]
+\setsanshangulfont{Noto Sans CJK KR}[
+  UprightFont=* DemiLight, BoldFont=* Medium,
+  Script=Hangul, Language=Korean
+]
+\setmathhangulfont{Noto Sans CJK KR}[
+  SizeFeatures={
+    {Size=-6,  Font=* Medium},
+    {Size=6-9, Font=*},
+    {Size=9-,  Font=* DemiLight},
+  },
+  Script=Hangul, Language=Korean
+]
+\title{MATH210: Homework 9 (due May. 9)}
+\author{Insert Author Here}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+\newcommand{\imag}{\operatorname{Im}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\Log}{\operatorname{Log}}
+\newcommand{\Arg}{\operatorname{Arg}}
+\DeclareMathOperator*{\Res}{Res}
+
+\begin{document}
+\maketitle
+
+\section{Section 77 \#1}
+\subsection{Solution for (b)}
+Using the Maclaurin series expansion of \(\cos z\), we can write
+\begin{align*}
+  z \cos \left( \frac{1}{z} \right)
+  = z \sum^\infty_{n = 0} (-1)^n \frac{1}{(2n)!} \left( \frac{1}{z} \right)^{2n}
+  = \sum^\infty_{n = 0} \frac{(-1)^n}{(2n)!} \frac{1}{z^{2n - 1}} \quad (0 < |z| < \infty)
+\end{align*}
+The coefficient of \(1 / z\) in this sequence occurs when \(2n - 1 = 1\), hence
+\begin{align*}
+  \Res_{z = 0} z \cos \left( \frac{1}{z} \right) = \frac{(-1)^1}{2!} = -\frac{1}{2}
+\end{align*}
+
+\subsection{Solution for (d)}
+We can write
+\begin{align*}
+  f(z) = \frac{\cot z}{z^4} = \frac{\cos z}{z^4 \sin z} = \cos z \left( \frac{1}{z^4 \sin z} \right)
+\end{align*}
+where \(0 < |z| < \pi\).
+Then we can write
+\begin{align*}
+  \frac{1}{z^4 \sin z}
+  = \dfrac{1}{z^4 \left( z - \dfrac{z^3}{3!} + \dfrac{z^5}{5!} - \dots \right)}
+  = \frac{1}{z^5} \left( \frac{1}{1 - \dfrac{z^2}{3!} + \dfrac{z^4}{5!} - \cdots} \right) \quad (0 < |z| < \pi)
+\end{align*}
+Since \(1 / (z^4 \sin z)\) is analytic where \(0 < |z| < \pi\).
+Using division, we obtain
+\begin{align*}
+  \frac{1}{1 - \dfrac{z^2}{3!} + \dfrac{z^4}{5!} - \cdots} = 1 + \frac{1}{6} z^2 + \frac{7}{360} z^4 + \frac{31}{15120} z^6 + \cdots \quad (0 < |z| < \pi)
+\end{align*}
+so
+\begin{align*}
+  \frac{1}{z^4 \sin z} = \frac{1}{z^5} + \frac{1}{6} \cdot \frac{1}{z^3} + \frac{7}{360} \cdot \frac{1}{z} + \frac{31}{15120} z + \cdots \quad (0 < |z| < \pi)
+\end{align*}
+Then we can calculate the product and obtain
+\begin{align*}
+  \cos z \left( \frac{1}{z^4 \sin z} \right)
+  &= \left( 1 - \frac{1}{2!} z^2 + \frac{1}{4!} z^4 - \cdots \right) \left( \frac{1}{z^5} + \frac{1}{6} \cdot \frac{1}{z^3} + \frac{7}{360} \cdot \frac{1}{z} + \frac{31}{15120} z + \cdots \right) \\
+  &= \frac{1}{z^5} \left( 1 - \frac{1}{2!} z^2 + \frac{1}{4!} z^4 - \cdots \right) + \frac{1}{6} \cdot \frac{1}{z^3} \left( 1 - \frac{1}{2!} z^2 + \frac{1}{4!} z^4 - \cdots \right) \\
+  &+ \frac{7}{360} \cdot \frac{1}{z} \left( 1 - \frac{1}{2!} z^2 + \frac{1}{4!} z^4 - \cdots \right) + \cdots \quad (0 < |z| < \pi)
+\end{align*}
+The coefficient of \(1 / z\) term is
+\begin{align*}
+  \frac{1}{4!} - \frac{1}{6} \cdot \frac{1}{2!} + \frac{7}{360} \cdot 1 = -\frac{1}{45}
+\end{align*}
+By definition, we know that \(\Res_{z = 0} f(z) = -1 / 45\).
+
+\section{Section 77 \#2}
+\subsection{Solution for (b)}
+Let \(f(z) = \exp(-z) / (z - 1)^2\), then \(f(z)\) has an isolated singularity, \(z = 1\) and it is interior to the circle.
+By Cauchy's residue theorem,
+\begin{align*}
+  \int_{|z| = 3} f(z) dz = 2\pi i \Res_{z = 1} f(z)
+\end{align*}
+From the Maclaurin series expansion of \(e^z\),
+\begin{align}\label{sec2_1_series}
+  f(z)
+  = \frac{\exp(-z)}{(z - 1)^2}
+  = \frac{\exp(-(z - 1))}{e(z - 1)^2}
+  = \frac{1}{e(z - 1)^2} \sum^\infty_{n = 0} \frac{[-(z - 1)]^n}{n!} \quad (0 < |z - 1| < \infty)
+\end{align}
+the coefficient of \(1 / (z - 1)\) in the series (\ref{sec2_1_series}) is \(-1 / e\), so \(\Res_{z = 1} f(z) = -1 / e\).
+Thus, the integral evaluates to \(-2\pi i / e\).
+
+\subsection{Solution for (d)}
+Let \(f(z) = (z + 1) / (z^2 - 2z) = (z + 1) / [z(z - 2)]\), then \(f(z)\) has two isolated singularities \(z = 0\) and \(z = 2\) and they are interior to the circle.
+From the Maclaurin series expansion of \(1 / (1 - z)\),
+\begin{align}\label{sec2_2_series_z0}
+  f(z)
+  = -\frac{1}{2} \left( 1 + \frac{1}{z} \right) \frac{1}{1 - z / 2}
+  = -\frac{1}{2} \left( 1 + \frac{1}{z} \right) \sum^\infty_{n = 0} \left( \frac{z}{2} \right)^n \quad (0 < |z| < 2)
+\end{align}
+The coefficient of \(1 / z\) in the series (\ref{sec2_2_series_z0}) is \(-1 / 2\), so \(\Res_{z = 0} f(z) = -1 / 2\).
+We can also write
+\begin{align}
+  \nonumber f(z)
+  \nonumber &= \frac{z + 1}{z - 2} \cdot \frac{1}{2 - (2 - z)}
+  \nonumber = \frac{1}{2} \left( 1 + \frac{3}{z - 2} \right) \frac{1}{1 - (2 - z) / 2} \\
+  \nonumber &= \frac{1}{2} \left( 1 + \frac{3}{z - 2} \right) \sum^\infty_{n = 0} \left( \frac{2 - z}{2} \right)^n \\
+  \label{sec2_2_series_z2} &= \frac{1}{2} \left( 1 + \frac{3}{z - 2} \right) \sum^\infty_{n = 0} \left( -\frac{1}{2} \right)^n (z - 2)^n \quad (0 < |z - 2| < 2)
+\end{align}
+The coefficient of \(1 / (z - 2)\) in the series (\ref{sec2_2_series_z2}) is \(3 / 2\), so \(\Res_{z = 2} f(z) = 3 / 2\).
+By Cauchy's residue theorem,
+\begin{align*}
+  \int_{|z| = 3} f(z) dz = 2\pi i \left( \Res_{z = 0} f(z) + \Res_{z = 2} f(z) \right) = 2\pi i
+\end{align*}
+
+\section{Section 77 \#4 (b)}
+Let \(f(z) = 1 / (1 + z^2)\).
+Using the Maclaurin series expansion of \(1 / (1 - z)\), we can write
+\begin{align*}
+  f(z)
+  = \frac{1}{1 + z^2}
+  = \sum^\infty_{n = 0} (-z^2)^n
+  = \sum^\infty_{n = 0} (-1)^n z^{2n} \quad (|z^2| < 1)
+\end{align*}
+then, \(\Res_{z = 0} f(z) = 0\).
+Using the theorem in section~77, we can write
+\begin{align*}
+  \int_{|z| = 2} f(z) dz
+  = 2\pi i \Res_{z = 0} \left[ \frac{1}{z^2} f \left( \frac{1}{z} \right) \right]
+  = 2\pi i \Res_{z = 0} \frac{1}{1 + z^2}
+  = 2\pi i \Res_{z = 0} f(z)
+  = 0
+\end{align*}
+
+\section{Section 79 \#1 (a)}
+The function has an isolated singularity at \(z = 0\).
+Using the Maclaurin series expansion of \(e^z\), we can write
+\begin{align*}
+  z \exp \left( \frac{1}{z} \right)
+  &= z \sum^\infty_{n = 0} \frac{1}{n!} \left( \frac{1}{z} \right)^n
+  = \sum^\infty_{n = 0} \frac{1}{n!} \cdot \frac{1}{z^{n - 1}} \\
+  &= z + 1 + \sum^\infty_{n = 2} \frac{1}{n!} \cdot \frac{1}{z^{n - 1}} \quad (0 < |z| < \infty)
+\end{align*}
+The principal part of the series at \(z = 0\) can be written as
+\begin{align*}
+  \sum^\infty_{n = 2} \frac{1}{n!} \cdot \frac{1}{z^{n - 1}}
+  = \frac{1}{2!} \cdot \frac{1}{z} + \frac{1}{3!} \cdot \frac{1}{z^2} + \cdots
+\end{align*}
+If we write the principal part as \(\sum^\infty_{n = 1} b_n z^{-n}\), \(b_n = (n + 1)!\) so \(b_n \not = 0\) for all \(n = 1, 2, \dots\).
+Thus, the point \(z = 0\) is an essential singular point.
+
+\section{Section 79 \#3}
+Since \(f(z)\) is analytic, there exists some \(R > 0\) such that \(f\) is analytic throught a disk \(|z - z_0| < R\).
+Then, \(f(z)\) has the power series representation
+\begin{align*}
+  f(z) = \sum^\infty_{n = 0} a_n(z - z_0)^n \quad (|z - z_0| < R)
+\end{align*}
+where
+\begin{align*}
+  a_n = \frac{f^{(n)}(z_0)}{n!} \quad (n = 0, 1, 2, \dots)
+\end{align*}
+by Taylor's theorem.
+\(g(z)\) has an isolated singularity at \(z_0\).
+We can write
+\begin{align*}
+  g(z)
+  &= \frac{f(z)}{z - z_0}
+  = \frac{1}{z - z_0} \sum^\infty_{n = 0} a_n(z - z_0)^n \\
+  &= \frac{a_0}{z - z_0} + \sum^\infty_{n = 1} a_n (z - z_0)^{n - 1} \quad (0 < |z - z_0| < R)
+\end{align*}
+
+\subsection{Solution for (a)}
+The principal part of the series is \(a_0 / (z - z_0)\).
+If we write the principal part as \(\sum^\infty_{n = 1} b_n z^{-n}\), \(b_1 = a_0 = f(z_0) \not = 0\) and \(b_n = 0 \quad (n = 2, 3, \dots)\).
+Thus, \(z_0\) is a pole of order 1, so it is a simple pole of \(g\).
+By definition, \(\Res_{z = z_0} f(z) = b_1 = f(z_0)\).
+
+\subsection{Solution for (b)}
+Since \(a_0 = f(z_0) = 0\), if we write the principal part as \(\sum^\infty_{n = 1} b_n z^{-n}\), \(b_n = 0 \quad (n = 1, 2, \dots)\).
+Thus, \(z_0\) is a removable singular point of \(g\).
+
+\section{Section 81 \#1 (d)}
+Let \(f(z) = e^z / (z^2 + \pi^2)\).
+Since \(e^z, z^2 + \pi^2\) are entire and \(z^2 + \pi^2 = 0\) at \(z = \pm i\pi\), \(f(z)\) has isolated singularities at \(z = \pm i\pi\).
+Then, we can write
+\begin{align*}
+  f(z) = \frac{\phi(z)}{z - i\pi}, \quad \phi(z) = \frac{e^z}{z + i\pi}
+\end{align*}
+Here, \(\phi(z)\) is analytic at \(i\pi\) and \(\phi(i\pi) \not = 0\).
+By the theorem in section~80, \(i\pi\) is a pole of order \(m = 1\) of \(f\) and \(B = \Res_{z = i\pi} f(z) = \phi(i\pi) = i / 2\pi\).
+We can also write
+\begin{align*}
+  f(z) = \frac{\psi(z)}{z + i\pi}, \quad \psi(z) = \frac{e^z}{z - i\pi}
+\end{align*}
+Then, \(\psi(z)\) is analytic at \(-i\pi\) and \(\psi(-i\pi) \not = 0\).
+Using the theorem in section~80 again, \(-i\pi\) is a pole of order \(m = 1\) of \(f\) and \(B = \Res_{z = -i\pi} f(z) = \psi(-i\pi) = -i / 2\pi\).
+
+\section{Section 81 \#2 (b)}
+Let \(f(z) = \Log z / (z^2 + 1)^2\).
+Since \(\Log z\) is analytic if \(-\pi < \theta < \pi\) where \(z = re^{i\theta}\), and \((z^2 + 1)^2\) is entire and \((z^2 + 1)^2 = 0\) at \(z = \pm i\), \(f(z)\) has isolated singularities at \(z = \pm i\).
+Then, we can write
+\begin{align*}
+  f(z) = \frac{\phi(z)}{(z - i)^2}, \quad \phi(z) = \frac{\Log z}{(z + i)^2}
+\end{align*}
+Here, \(\phi(z)\) is analytic at \(i\) and \(\phi(i) \not = 0\).
+By the theorem in section~80,
+\begin{align*}
+  \Res_{z = i} f(z) = \frac{\phi'(i)}{1!} = \frac{(1 / i)(i + i)^2 - 2(i + i)\Log i}{(i + i)^4} = \frac{4i + 2\pi}{16} = \frac{\pi + 2i}{8}
+\end{align*}
+
+\section{Section 81 \#5 (a)}
+Let \(f(z) = 1 / [z^3(z + 4)]\).
+Since \(z^3(z + 4)\) is an entire function, \(f(z)\) has isolated singularities at \(z = 0, -4\).
+Using Cauchy's residue theorem, since only 0 is inside and on \(C\)
+\begin{align*}
+  \int_C f(z) dz = \int_C \frac{dz}{z^3(z + 4)} = 2\pi i \Res_{z = 0} f(z)
+\end{align*}
+We can write
+\begin{align*}
+  f(z) = \frac{\phi(z)}{z^3}, \quad \phi(z) = \frac{1}{z + 4}
+\end{align*}
+Then, \(\phi(z)\) is analytic at 0 and \(\phi(0) \not = 0\).
+Using the theorem in section~80, 0 is a pole of order 3 of \(f\) and \(\Res_{z = 0} f(z) = \phi''(0) / 2! = 2 \cdot 4^{-3} / 2! = 1 / 64\).
+In conclusion,
+\begin{align*}
+  \int_C \frac{dz}{z^3(z + 4)} = 2\pi i \Res_{z = 0} f(z) = \pi i / 32
+\end{align*}
+
+\section{Section 81 \#6}
+Let \(f(z) = \cosh (\pi z) / [z(z^2 + 1)]\).
+Since \(\cosh (\pi z), z(z^2 + 1)\) are entire function, \(f(z)\) has isolated singularities at \(z = 0, \pm i\).
+Using Cauchy's residue theorem, since \(0, \pm i\) are all inside and on \(C\)
+\begin{align*}
+  \int_C f(z) dz = 2\pi i \left( \Res_{z = 0} f(z) + \Res_{z = i} f(z) + \Res_{z = -i} f(z) \right)
+\end{align*}
+We can write
+\begin{align*}
+  f(z) = \frac{\phi(z)}{z}, \quad \phi(z) = \frac{\cosh (\pi z)}{z^2 + 1}
+\end{align*}
+Then, \(\phi(z)\) is analytic at \(0\) and \(\phi(0) \not = 0\).
+Using the theorem in section~80, 0 is a pole of order 1 of \(f\) and \(\Res_{z = 0} f(z) = \phi(0) = 1\).
+We can also write
+\begin{align*}
+  f(z) = \frac{\psi(z)}{z - i}, \quad \psi(z) = \frac{\cosh (\pi z)}{z(z + i)}
+\end{align*}
+Then, \(\psi(z)\) is analytic at \(i\) and \(\psi(i) \not = 0\).
+Using the theorem in section~80, \(i\) is a pole of order 1 of \(f\) and \(\Res_{z = i} f(z) = \psi(i) = 1 / 2\).
+We can also write
+\begin{align*}
+  f(z) = \frac{\omega(z)}{z + i}, \quad \omega(z) = \frac{\cosh (\pi z)}{z(z - i)}
+\end{align*}
+Then, \(\omega(z)\) is analytic at \(-i\) and \(\omega(-i) \not = 0\).
+Using the theorem in section~80, \(-i\) is a pole of order 1 of \(f\) and \(\Res_{z = -i} f(z) = \omega(-i) = 1 / 2\).
+In conclusion,
+\begin{align*}
+  \int_C \frac{\cosh \pi z}{z(z^2 + 1)} dz = 2\pi i \left( \Res_{z = 0} f(z) + \Res_{z = i} f(z) + \Res_{z = -i} f(z) \right) = 4\pi i
+\end{align*}
+
+\section{Section 83 \#8}
+By definition, \(z_0\) is a zero of order 1 of \(q(z)\).
+By theorem~1 in section~82, \(q(z) = (z - z_0)g(z)\) where \(g(z)\) is analytic and nonzero at \(z_0\).
+Then, we can write
+\begin{align*}
+  f(z) = \frac{\phi(z)}{(z - z_0)^2}, \quad \phi(z) = \frac{1}{(g(z))^2}
+\end{align*}
+and \(\phi(z)\) is analytic and nonzero at \(z_0\) as \(g\) is analytic and nonzero at \(z_0\).
+By the theorem in section~80, \(z_0\) is a pole of order 2 of \(f\), and
+\begin{align*}
+  \Res_{z = z_0} f(z) = \frac{\phi'(z_0)}{1!} = -2g'(z_0)(g(z_0))^{-3}
+\end{align*}
+From \(q'(z) = g(z) + (z - z_0)g'(z)\) and \(q''(z) = 2g'(z) + (z - z_0)g''(z)\), \(q'(z_0) = g(z_0), q''(z_0) = 2g'(z_0)\).
+Thus, \(\Res_{z = z_0} f(z) = -q''(z_0) / (q'(z_0))^3\) and we get the desired result.
+
+\section{Section 83 \#10}
+By the theorem in section~80 we can write
+\begin{align*}
+  \frac{p(z)}{q(z)} = \frac{\phi(z)}{(z - z_0)^m}
+\end{align*}
+where \(\phi(z)\) is analytic and nonzero at \(z_0\).
+Then, since \(p\) is analytic and nonzero at \(z_0\), we can write
+\begin{align*}
+  \frac{1}{q(z)} = \frac{1}{(z - z_0)^m} \cdot \frac{\phi(z)}{p(z)}
+\end{align*}
+and \(\phi(z) / p(z)\) is also analytic and nonzero at \(z_0\), so \(z_0\) is a pole of order \(m\) of \(1 / q(z)\) by the theorem in section~80.
+Since \(q\) is analytic at \(z_0\), there exists some \(R > 0\) such that \(1 / q(z)\) is analytic on \(0 < |z| < R\).
+Then we can write
+\begin{align*}
+  \frac{1}{q(z)}
+  &= \sum^m_{n = 1} \frac{b_n}{(z - z_0)^n} + \sum^\infty_{n = 0} a_n (z - z_0)^n \\
+  &= \frac{1}{(z - z_0)^m} \left[ \sum^{m - 1}_{n = 0} b_{m - n} (z - z_0)^n + \sum^\infty_{n = 0} a_n (z - z_0)^{m + n} \right]
+  = \frac{h(z)}{(z - z_0)^m}
+\end{align*}
+and \(h(z)\) is analytic at \(z_0\), and \(h(z_0) = b_m \not = 0\) so \(1 / h(z)\) is also analytic and nonzero at \(z_0\).
+In conclusion, \(q(z) = (z - z_0)^m / h(z)\) and by theorem~1 in section~82 \(q\) has a zero of order \(m\) at \(z_0\).
+
+\end{document}
