@@ -1,0 +1,431 @@
+\documentclass{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{kotex}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+
+\newcommand\Overline[2][0.8pt]{%
+  \begin{tikzpicture}[baseline=(a.base)]
+    \node[inner xsep=0pt,inner ysep=1.5pt] (a) {$#2$};
+    \draw[line width= #1] (a.north west) -- (a.north east);
+  \end{tikzpicture}
+}
+\newtheorem{theorem}{Theorem}
+
+\setmainhangulfont{Noto Serif CJK KR}[
+  UprightFont=* Light, BoldFont=* Bold,
+  Script=Hangul, Language=Korean, AutoFakeSlant,
+]
+\setsanshangulfont{Noto Sans CJK KR}[
+  UprightFont=* DemiLight, BoldFont=* Medium,
+  Script=Hangul, Language=Korean
+]
+\setmathhangulfont{Noto Sans CJK KR}[
+  SizeFeatures={
+    {Size=-6,  Font=* Medium},
+    {Size=6-9, Font=*},
+    {Size=9-,  Font=* DemiLight},
+  },
+  Script=Hangul, Language=Korean
+]
+\title{MATH210: Homework 11 (due May. 23)}
+\author{손량(20220323)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+\newcommand{\imag}{\operatorname{Im}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\Log}{\operatorname{Log}}
+\newcommand{\Arg}{\operatorname{Arg}}
+\DeclareMathOperator*{\Res}{Res}
+
+\begin{document}
+\maketitle
+
+\section{Section 88 \#2}
+Let \(q(z) = z^2 + 1,\, f(z) = 1 / q(z)\) and \(g(z) = f(z) e^{iaz}\).
+Since \(q(z)\) is analytic everywhere and \(q(\pm i) = 0\), \(f(z)\) and \(g(z)\) has isolated singularities at \(\pm i\).
+\(i\) is inside a semicircular region bounded by \(z = x \quad (x \in [-R, R])\) and upper half \(C_R\) of the circle \(|z| = R\), where \(R > 1\).
+By Cauchy's residue theorem,
+\begin{align}\label{sec1_eq}
+  \int^R_{-R} g(x) dx + \int_{C_R} g(z) dz = 2\pi i \Res_{z = i} g(z)
+\end{align}
+Since \(q(i) = 0\) and \(q'(i) \not = 0\) we can apply theorem~2 in section~83 and write
+\begin{align*}
+  \Res_{z = i} g(z) = \frac{e^{-a}}{q'(i)} = \frac{e^{-a}}{2i}
+\end{align*}
+For all \(z \in C_R\), we can write
+\begin{align*}
+  |f(z)| = \left| \frac{1}{z^2 + 1} \right| = \frac{1}{|z^2 + 1|} \leq \frac{1}{|z^2| - 1} = \frac{1}{R^2 - 1}
+\end{align*}
+\(\lim_{R \to \infty} 1 / (R^2 - 1) = 0\), and \(f(z)\) is analytic at all points in the upper half plane that are exterior to \(|z| = 1\).
+Then we can use Jordan's lemma and write
+\begin{align*}
+  \lim_{R \to \infty} \int_{C_R} g(z) dz = \lim_{R \to \infty} \int_{C_R} f(z) e^{iaz} dz = 0
+\end{align*}
+and write (\ref{sec1_eq}) as
+\begin{align*}
+  \lim_{R \to \infty} \int^R_{-R} g(x) dx
+  = 2\pi i \Res_{z = i} g(z) - \lim_{R \to \infty} \int_{C_R} g(z) dz
+  = \pi e^{-a}
+\end{align*}
+so
+\begin{align*}
+  \int^\infty_{-\infty} g(x) dx = \pi e^{-a}
+\end{align*}
+Since \(\real g(z) = \cos (az) / (z^2 + 1)\), we can write
+\begin{align*}
+  \int^\infty_{-\infty} \frac{\cos (ax)}{x^2 + 1} dx = \real \int^\infty_{-\infty} g(x) dx = \pi e^{-a}
+\end{align*}
+and \(\cos (ax)\) and \(x^2 + 1\) are both odd functions,
+\begin{align*}
+  \int^\infty_0 \frac{\cos (ax)}{x^2 + 1} dx = \frac{1}{2} \int^\infty_{-\infty} \frac{\cos (ax)}{x^2 + 1} dx = \frac{\pi}{2} e^{-a}
+\end{align*}
+
+\section{Section 88 \#5}
+Let \(q(z) = z^4 + 4,\, f(z) = z^3 / q(z)\) and \(g(z) = f(z) e^{iaz}\).
+\(f(z)\) and \(g(z)\) have isolated singularities at the zeros of \(q(z)\), which are fourth roots of \(-4\) and they are analytic anywhere else.
+The complex roots of \(-4\) are \(c_k = \sqrt{2} \exp(i(\pi + 2k\pi) / 4) \quad (k = 0, 1, 2, 3)\) and none of them lies on the real axis.
+\(c_0, c_1\) lie in the upper half plane, so they are inside a semicircular region bounded by \(z = x \quad (x \in [-R, R])\) and upper half \(C_R\) of the circle \(|z| = R\), where \(R > \sqrt{2}\).
+By Cauchy's residue theorem,
+\begin{align}\label{sec2_eq}
+  \int^R_{-R} g(x) dx + \int_{C_R} g(z) dz
+  = 2\pi i \left( \Res_{z = c_0} g(z) + \Res_{z = c_1} g(z) \right)
+\end{align}
+Since \(q(c_k) = 0\) and \(q'(c_k) \not = 0\) for \(k = 0, 1\), we can apply theorem~2 in section~83 and write
+\begin{align*}
+  \Res_{z = c_k} g(z)
+  = \frac{c_k^3 e^{iac_k}}{q'(c_k)}
+  = \frac{c_k^3 e^{iac_k}}{4c_k^3}
+  = \frac{e^{iac_k}}{4}
+\end{align*}
+for \(k = 0, 1\).
+For all \(z \in C_R\), we can write
+\begin{align*}
+  |f(z)| = \left| \frac{z^3}{z^4 + 4} \right| = \frac{R^3}{|z^4 + 4|} \leq \frac{R^3}{|z^4| - 4} = \frac{R^3}{R^4 - 4}
+\end{align*}
+From \(\lim_{R \to \infty} R^3 / (R^4 - 4) = 0\) and since \(f(z)\) is analytic at all points in the upper half plane that are exterior to \(|z| = \sqrt{2}\), we can apply Jordan's lemma and obtain
+\begin{align*}
+  \lim_{R \to \infty} \int_{C_R} g(z) dz = \lim_{R \to \infty} \int_{C_R} f(z) e^{iaz} dz = 0
+\end{align*}
+We can write (\ref{sec2_eq}) as
+\begin{align*}
+  \lim_{R \to \infty} \int^R_{-R} g(x) dx
+  = 2\pi i \left( \Res_{z = c_0} g(z) + \Res_{z = c_1} g(z) \right) - \lim_{R \to \infty} \int_{C_R} g(z) dz
+\end{align*}
+so
+\begin{align*}
+  \int^\infty_{-\infty} g(x) dx
+  &= 2\pi i \left( \Res_{z = c_0} g(z) + \Res_{z = c_1} g(z) \right)
+  = 2\pi i \left( \frac{e^{iac_0}}{4} + \frac{e^{iac_1}}{4} \right) \\
+  &= 2\pi i \left( \frac{e^{ia - a}}{4} + \frac{e^{-ia - a}}{4} \right)
+  = i \pi e^{-a} \frac{e^{ia} + e^{-ia}}{2}
+  = i \pi e^{-a} \cos a
+\end{align*}
+Since \(\imag g(z) = z^3 \sin (az) / (z^4 + 4)\),
+\begin{align*}
+  \int^\infty_{-\infty} \frac{x^3 \sin (ax)}{x^4 + 4} dx = \imag \int^\infty_{-\infty} g(x) dx = \pi e^{-a} \cos a
+\end{align*}
+
+\section{Section 88 \#9}
+Let \(q(z) = z^2 + 2z + 2,\, f(z) = z / q(z)\) and \(g(z) = f(z) e^{iz}\).
+\(f(z)\) and \(g(z)\) have isolated singularities at the zeros of \(q(z)\), and they are analytic anywhere else.
+\(q(z)\) has zeros at \(-1 \pm i\) and none of them lies on the real axis.
+\(-1 + i\) lie in the upper half plane, so it is inside a semicircular region bounded by \(z = x \quad (x \in [-R, R])\) and upper half \(C_R\) of the circle \(|z| = R\), where \(R > 3\).
+By Cauchy's residue theorem,
+\begin{align*}
+  \int^R_{-R} g(x) dx + \int_{C_R} g(z) dz
+  = 2\pi i \Res_{z = -1 + i} g(z)
+\end{align*}
+Since \(q(-1 + i) = 0\) and \(q'(-1 + i) \not = 0\), we can apply theorem~2 in section~83 and write
+\begin{align*}
+  \Res_{z = -1 + i} g(z)
+  = \frac{(-1 + i) e^{i(-1 + i)}}{q'(-1 + i)}
+  = \frac{(-1 + i) e^{-1 - i}}{2i}
+  = \frac{(-1 + i) (\cos (-1) + i \sin (-1))}{2ie}
+\end{align*}
+For all \(z \in C_R\), we can write
+\begin{align*}
+  |f(z)|
+  &= \left| \frac{z}{z^2 + 2z + 2} \right|
+  = \frac{R}{|z^2 + 2z + 2|}
+  \leq \frac{R}{|z^2 + 2z| - 2}
+  = \frac{R}{|z||z + 2| - 2} \\
+  &\leq \frac{R}{|z|(|z| - 2) - 2}
+  = \frac{R}{R^2 - 2R - 2}
+\end{align*}
+We can see that \(\lim_{R \to \infty} R / (R^2 - 2R - 2) = 0\) and since \(f(z)\) is analytic at all points in the upper half plane that are exterior to \(|z| = 3\), we can apply Jordan's lemma.
+\begin{align*}
+  \lim_{R \to \infty} \int_{C_R} g(z) dz = \lim_{R \to \infty} \int_{C_R} f(z) e^{iz} dz = 0
+\end{align*}
+We can write
+\begin{align*}
+  \text{P.V.} \int^\infty_{-\infty} g(z) dz
+  &= \lim_{R \to \infty} \int^R_{-R} g(z) dz
+  = 2\pi i \Res_{z = -1 + i} g(z) - \lim_{R \to \infty} \int_{C_R} g(z) dz \\
+  &= \frac{\pi}{e} (-1 + i) (\cos 1 - i \sin 1)
+\end{align*}
+so
+\begin{align*}
+  \text{P.V.} \int^\infty_{-\infty} \frac{x \sin x dx}{x^2 + 2x + 2}
+  &= \imag \text{P.V.} \int^\infty_{-\infty} g(z) dz
+  = \imag \frac{\pi}{e} (-1 + i) (\cos 1 - i \sin 1) \\
+  &= \frac{\pi}{e} (\sin 1 + \cos 1)
+\end{align*}
+
+\section{Section 91 \#1}
+If \(a = b\), then \(\int^\infty_0 (\cos (ax) - \cos (bx)) / x^2 dx = \int^\infty_0 0 dx = 0\) and there is nothing to prove.
+
+Let's consider the \(a \not = b\) case.
+Using the contour in figure~108 of section~90, we can write
+\begin{align*}
+  \int_{L_1} f(z) dz + \int_{C_R} f(z) dz + \int_{L_2} f(z) dz + \int_{C_\rho} f(z) dz = 0
+\end{align*}
+by the Cauchy-Goursat theorem.
+Then,
+\begin{align}
+  \nonumber \int_{L_1} f(z) dz + \int_{L_2} f(z) dz
+  &= \int_{L_1} f(z) dz - \int_{-L_2} f(z) dz \\
+  \nonumber &= \int^R_\rho f(x) dx + \int^R_\rho f(-x) dx \\
+  \nonumber &= \int^R_\rho \frac{(e^{iax} + e^{-iax}) - (e^{ibx} + e^{-ibx})}{x^2} dx \\
+  \nonumber &= \int^R_\rho \frac{2(\cos (ax) - \cos (bx))}{x^2} dx \\
+  \label{sec4_eq} &= -\int_{C_R} f(z) dz - \int_{C_\rho} f(z) dz
+\end{align}
+Let \(g(z) = 1 / z^2\).
+For all \(z \in C_R\), we can write
+\begin{align*}
+  |g(z)| = \left| \frac{1}{z^2} \right| = \frac{1}{R^2}
+\end{align*}
+We can see that \(\lim_{R \to \infty} 1 / R^2 = 0\) and since \(g(z)\) is analytic at all points in the upper half plane that are exterior to \(|z| = R_0\) for some \(R_0 > 0\), we can apply Jordan's lemma.
+\begin{align*}
+  \lim_{R \to \infty} \int_{C_R} g(z) e^{iaz} dz = 0
+\end{align*}
+for \(a > 0\).
+Since \(\int_{C_R} g(z) dz \leq \pi R / R^2 = \pi / R\), \(\lim_{R \to \infty} \int_{C_R} g(z) e^{iaz} dz = 0\) for \(a \geq 0\).
+Thus, we can write
+\begin{align*}
+  \lim_{R \to \infty} \int_{C_R} f(z) dz
+  &= \lim_{R \to \infty} \int_{C_R} g(z) (e^{iaz} - e^{ibz}) dz \\
+  &= \lim_{R \to \infty} \left( \int_{C_R} g(z) e^{iaz} dz - \int_{C_R} g(z) e^{ibz} dz \right)
+  = 0
+\end{align*}
+for \(a \geq 0,\, b \geq 0\).
+Using the Maclaurin series expansion of \(e^{iaz}\), we can write
+\begin{align*}
+  f(z)
+  &= \frac{1}{z^2} \left[ \left( 1 + iaz + \frac{(iaz)^2}{2!} + \cdots \right) - \left( 1 + ibz + \frac{(ibz)^2}{2!} + \cdots \right) \right] \\
+  &= \frac{1}{z^2} \sum^\infty_{n = 1} \frac{(ia)^n - (ib)^n}{n!} z^n
+  = \sum^\infty_{n = 1} \frac{(ia)^n - (ib)^n}{n!} z^{n - 2} \quad (0 < |z| < \infty)
+\end{align*}
+and we know that \(f(z)\) has a simple pole at \(z = 0\), with residue \(B_0 = \Res_{z = 0} f(z) = i(a - b)\).
+Using the theorem in section~89, we can write
+\begin{align*}
+  \lim_{\rho \to 0} \int_{C_\rho} f(z) dz = -B_0 \pi i = \pi (a - b)
+\end{align*}
+From (\ref{sec4_eq}),
+\begin{align*}
+  \int^\infty_0 \frac{\cos (ax) - \cos (bx)}{x^2} dx
+  &= \lim_{R \to \infty} \lim_{\rho \to 0} \int^R_\rho \frac{\cos (ax) - \cos (bx)}{x^2} dx \\
+  &= -\frac{1}{2} \lim_{R \to \infty} \lim_{\rho \to 0} \left( \int_{C_R} f(z) dz + \int_{C_\rho} f(z) dz \right) \\
+  &= \frac{\pi}{2} (b - a)
+\end{align*}
+and we get the desired result.
+
+Setting \(a = 0,\, b = 2\) gives us
+\begin{align*}
+  \int^\infty_0 \frac{1 - \cos (2x)}{x^2} dx
+  = \int^\infty_0 \frac{2\sin^2 x}{x^2} dx
+  = \pi
+\end{align*}
+so
+\begin{align*}
+  \int^\infty_0 \frac{\sin^2 x}{x^2} dx
+  = \frac{\pi}{2}
+\end{align*}
+
+\section{Section 91 \#4}
+Let \(q(z) = (z + a)(z + b)\) and \(f(z) = \sqrt[3]{z} / q(z)\) where \(|z| > 0,\, 0 < \arg z < 2\pi\).
+Then
+\begin{align*}
+  f(z)
+  = \frac{\exp \left( \frac{1}{3} \log z \right)}{(z + a)(z + b)}
+  = \frac{\exp \left( \frac{1}{3} (\ln r + i\theta) \right)}{(re^{i\theta} + a)(re^{i\theta} + b)}
+\end{align*}
+where \(z = re^{i\theta}\).
+Then we can write
+\begin{align*}
+  \lim_{\theta \to 0+} f(re^{i\theta})
+  = \lim_{\theta \to 0+} \frac{\exp \left( \frac{1}{3} (\ln r + i\theta) \right)}{(re^{i\theta} + a)(re^{i\theta} + b)}
+  = \frac{\exp \left( \frac{1}{3} \ln r \right)}{(r + a)(r + b)}
+  = \frac{\sqrt[3]{r}}{(r + a)(r + b)}
+\end{align*}
+and
+\begin{align*}
+  \lim_{\theta \to 2\pi-} f(re^{i\theta})
+  &= \lim_{\theta \to 2\pi-} \frac{\exp \left( \frac{1}{3} (\ln r + i\theta) \right)}{(re^{i\theta} + a)(re^{i\theta} + b)} \\
+  &= \frac{\exp \left( \frac{1}{3} (\ln r + 2\pi i) \right)}{(re^{2\pi i} + a)(re^{2\pi i} + b)}
+  = \frac{\exp \left( \frac{1}{3} (\ln r + 2\pi i) \right)}{(r + a)(r + b)}
+  = \frac{\sqrt[3]{r} e^{2\pi i / 3}}{(r + a)(r + b)}
+\end{align*}
+Since \(f(z)\) has isolated singularities at \(a\) and \(b\) and analytic anywhere else, we can use Cauchy's residue theorem and obtain
+\begin{align}
+  \nonumber &\int^R_\rho \frac{\sqrt[3]{r}}{(r + a)(r + b)} dr + \int_{C_R} f(z) dz - \int^R_\rho \frac{\sqrt[3]{r} e^{2\pi i / 3}}{(r + a)(r + b)} dr + \int_{C_\rho} f(z) dz \\
+  \label{sec5_cauchy} &= 2\pi i \left( \Res_{z = -a} f(z) + \Res_{z = -b} f(z) \right)
+\end{align}
+Since \(q(-a) = q(-b) = 0,\, q'(-a) \not = 0\) and \(q'(-b) \not = 0\), we can apply theorem~2 in section~83 and write
+\begin{align*}
+  \Res_{z = -a} f(z)
+  &= \frac{\sqrt[3]{-a}}{q'(-a)}
+  = \frac{\exp \left( \frac{1}{3} (\ln a + i\pi) \right)}{-a + b}
+  = \frac{\sqrt[3]{a} e^{i\pi / 3}}{-a + b} \\
+  \Res_{z = -b} f(z)
+  &= \frac{\sqrt[3]{-b}}{q'(-b)}
+  = \frac{\exp \left( \frac{1}{3} (\ln b + i\pi) \right)}{a - b}
+  = \frac{\sqrt[3]{b} e^{i\pi / 3}}{a - b}
+\end{align*}
+so we can write (\ref{sec5_cauchy}) as
+\begin{align}\label{sec5_eq}
+  (1 - e^{2\pi i / 3}) \int^R_\rho \frac{\sqrt[3]{r}}{(r + a)(r + b)} dr
+  = 2\pi i (-e^{i\pi / 3}) \frac{\sqrt[3]{a} - \sqrt[3]{b}}{a - b} - \int_{C_R} f(z) dz - \int_{C_\rho} f(z) dz
+\end{align}
+For all \(z\) such that \(|z| = \rho\),
+\begin{align*}
+  |f(z)|
+  = \left| \frac{\sqrt[3]{z}}{(z + a)(z + b)} \right|
+  = \frac{|z|^{1 / 3}}{|z + a| |z + b|}
+  \leq \frac{\sqrt[3]{\rho}}{(a - \rho)(b - \rho)}
+\end{align*}
+so
+\begin{align*}
+  \left| \int_{C_\rho} f(z) dz \right| \leq \frac{\sqrt[3]{\rho}}{(a - \rho)(b - \rho)} \cdot \pi \rho
+\end{align*}
+since \(\lim_{\rho \to 0} \pi \rho \sqrt[3]{\rho} / [(a - \rho)(b - \rho)] = 0\), by sandwich theorem \(\int_{C_\rho} f(z) dz\) tends to zero as \(\rho \to 0\).
+For all \(z\) such that \(|z| = R\),
+\begin{align*}
+  |f(z)|
+  = \left| \frac{\sqrt[3]{z}}{(z + a)(z + b)} \right|
+  = \frac{|z|^{1 / 3}}{|z + a| |z + b|}
+  \leq \frac{\sqrt[3]{R}}{(R - a)(R - b)}
+\end{align*}
+so
+\begin{align*}
+  \left| \int_{C_R} f(z) dz \right| \leq \frac{\sqrt[3]{R}}{(R - a)(R - b)} \cdot \pi R
+\end{align*}
+since \(\lim_{R \to \infty} \pi R \sqrt[3]{R} / [(R - a)(R - b)] = 0\), by sandwich theorem \(\int_{C_R} f(z) dz\) tends to zero as \(R \to \infty\).
+Then, we can take \(\rho \to 0,\, R \to \infty\) limits to (\ref{sec5_eq}) and write
+\begin{align*}
+  (1 - e^{2\pi i / 3}) \int^\infty_0 \frac{\sqrt[3]{r}}{(r + a)(r + b)} dr = 2\pi i (-e^{i\pi / 3}) \frac{\sqrt[3]{a} - \sqrt[3]{b}}{a - b}
+\end{align*}
+and we obtain the desired result.
+\begin{align*}
+  \int^\infty_0 \frac{\sqrt[3]{x}}{(x + a)(x + b)} dx = \frac{2\pi}{\sqrt{3}} \cdot \frac{\sqrt[3]{a} - \sqrt[3]{b}}{a - b}
+\end{align*}
+
+\section{Section 91 \#6}
+\subsection{Proof for (a)}
+Let \(\Gamma\) be a contour created by joining \(\Gamma_R,\, L,\, \Gamma_\rho\) and contour connecting \(\rho\) to \(R\).
+Since \(f_1(z)\) has an isolated singularity at \(-1\) and analytic anywhere else inside and on \(\Gamma\), we can apply Cauchy's residue theorem.
+The linear contour connecting \(\rho\) to \(R\) can be parametrized as \(z = r \quad (\rho \leq r \leq R)\), so
+\begin{align}
+  \nonumber \int_\Gamma f_1(z) dz
+  &= \int^R_\rho f(r) dr + \int_{\Gamma_R} f_1(z) dz + \int_L f_1(z) dz + \int_{\Gamma_\rho} f_1(z) dz \\
+  \label{sec6_1_int} &= \int^R_\rho \frac{r^{-a}}{r + 1} dr + \int_{\Gamma_R} f_1(z) dz + \int_L f_1(z) dz + \int_{\Gamma_\rho} f_1(z) dz
+  = 2\pi i \Res_{z = -1} f_1(z)
+\end{align}
+
+\subsection{Proof for (b)}
+Let \(\gamma\) be a contour created by joining \(\gamma_R,\, -L,\, \gamma_\rho\) and contour connecting \(R\) to \(\rho\).
+Since \(f_2(z)\) has an isolated singularity at \(-1\) and analytic anywhere else except the branch cut \(\theta = \pi / 2\), we can apply Cauchy-Goursat theorem.
+The linear contour connecting \(R\) to \(\rho\) can be parametrized as \(z = R + \rho - r \quad (\rho \leq r \leq R)\), so
+\begin{align}
+  \nonumber \int_\gamma f_2(z) dz
+  &= -\int^R_\rho f_2(R + \rho - r) dr + \int_{\gamma_\rho} f_2(z) dz + \int_{-L} f_2(z) dz + \int_{\gamma_R} f_2(z) dz \\
+  \nonumber &= -\int^R_\rho f_2(r) dr + \int_{\gamma_\rho} f_2(z) dz - \int_L f_2(z) dz + \int_{\gamma_R} f_2(z) dz \\
+  \nonumber &= -\int^R_\rho \frac{e^{-a(\ln |r| + i\arg r)}}{r + 1} dr + \int_{\gamma_\rho} f_2(z) dz - \int_L f_2(z) dz + \int_{\gamma_R} f_2(z) dz \\
+  \label{sec6_2_int} &= -\int^R_\rho \frac{r^{-a} e^{-i2a\pi}}{r + 1} dr + \int_{\gamma_\rho} f_2(z) dz - \int_L f_2(z) dz + \int_{\gamma_R} f_2(z) dz
+  = 0
+\end{align}
+
+\subsection{Proof for (c)}
+Let \(z = re^{i\theta} \quad (r > 0)\).
+Then we can write
+\begin{align}
+  \label{sec6_3_lim0} \lim_{\theta \to 0+} f(z)
+  &= \lim_{\theta \to 0+} \frac{\exp(-a(\ln r + i\theta))}{re^{i\theta} + 1}
+  = \frac{r^{-a}}{r + 1} \\
+  \label{sec6_3_lim2pi} \lim_{\theta \to 2\pi-} f(z)
+  &= \lim_{\theta \to 2\pi-} \frac{\exp(-a(\ln r + i\theta))}{re^{i\theta} + 1}
+  = \frac{r^{-a} e^{-i2a\pi}}{r + 1}
+\end{align}
+Since these limits exist, \(f(z)\) is continuous on \(\Gamma\) when its value at \(\theta = 0\) is defined according to (\ref{sec6_3_lim0}).
+Thus, we can replace \(f_1\) in (\ref{sec6_1_int}) to \(f\) and write
+\begin{align}\label{sec6_3_int1}
+  \int^R_\rho \frac{r^{-a}}{r + 1} dr + \int_{\Gamma_R} f(z) dz + \int_L f(z) dz + \int_{\Gamma_\rho} f(z) dz
+  = 2\pi i \Res_{z = -1} f(z)
+\end{align}
+Also, \(f(z)\) is continuous on \(\gamma\) when its value at \(\theta = 2\pi\) is defined according to (\ref{sec6_3_lim2pi}).
+Then we can also replace \(f_2\) in (\ref{sec6_2_int}) to \(f\) and write
+\begin{align}\label{sec6_3_int2}
+  -\int^R_\rho \frac{r^{-a} e^{-i2a\pi}}{r + 1} dr + \int_{\gamma_\rho} f(z) dz - \int_L f(z) dz + \int_{\gamma_R} f(z) dz
+  = 0
+\end{align}
+Adding both sides of (\ref{sec6_3_int1}) and (\ref{sec6_3_int2}), we can write
+\begin{align*}
+  (1 - e^{-i2a\pi}) \int^R_\rho \frac{r^{-a}}{r + 1} dr + \int_{C_R} f(z) dz + \int_{C_\rho} f(z) dz
+  = 2\pi i \Res_{z = -1} f(z)
+\end{align*}
+where \(C_R\) and \(C_\rho\) are circles \(|z| = R\) and \(|z| = \rho\), respectively.
+
+\section{Section 92 \#4}
+Using the substitution introduced in section~92, we can write
+\begin{align*}
+  \int^{2\pi}_0 \frac{d\theta}{1 + a \cos \theta}
+  = \int_C \frac{1}{1 + a \left( \frac{z + z^{-1}}{2} \right)} \frac{dz}{iz}
+  = \int_C \frac{2 / (ia)}{z^2 + (2 / a)z + 1} dz
+\end{align*}
+where \(C\) is the positively oriented circle \(|z| = 1\).
+The denominator of the integrand has zeros at
+\begin{align*}
+  z_1 = \frac{-1 + \sqrt{1 - a^2}}{a},\, z_2 = \frac{-1 - \sqrt{1 - a^2}}{a}
+\end{align*}
+We can write
+\begin{align*}
+  |z_2| - 1
+  &= \left| \frac{-1 - \sqrt{1 - a^2}}{a} \right| - 1
+  = \frac{|-1 - \sqrt{1 - a^2}|}{|a|} - 1 \\
+  &= \frac{1 + \sqrt{1 - a^2}}{|a|} - 1
+  = \frac{1 - |a| + \sqrt{1 - |a|^2}}{|a|} \\
+  &= \frac{\sqrt{1 - |a|} (\sqrt{1 - |a|} + \sqrt{1 + |a|})}{|a|}
+  > 0
+\end{align*}
+Since \(z_1 z_2 = 1\), we know that \(|z_1| < 1\) so there is no singular point on \(C\) and only \(z_1\) is an isolated singularity of \(f(z)\) and it is interior to \(C\).
+By Cauchy's residue theorem,
+\begin{align}\label{sec7_res}
+  \int_C \frac{2 / (ia)}{z^2 + (2 / a)z + 1} dz = 2\pi i\Res_{z = z_1} \frac{2 / (ia)}{z^2 + (2 / a) z +1}
+\end{align}
+Let \(q(z) = z^2 + (2 / a)z + 1\).
+Since \(q(z_1) = 0\) and \(q'(z_1) \not = 0\), by theorem~2 in section~83 we can write
+\begin{align*}
+  \Res_{z = z_1} \frac{2 / (ia)}{z^2 + (2 / a)z + 1}
+  = \frac{2 / (ia)}{q'(z_1)}
+  = \frac{1}{i\sqrt{1 - a^2}}
+\end{align*}
+and (\ref{sec7_res}) gives us
+\begin{align*}
+  \int_C \frac{2 / (ia)}{z^2 + (2 / a)z + 1} dz
+  = 2\pi i \cdot \frac{1}{i\sqrt{1 - a^2}}
+  = \frac{2\pi}{\sqrt{1 - a^2}}
+\end{align*}
+
+\end{document}
